@@ -1,5 +1,5 @@
 import java.awt.*;
-import javax.swing.*
+import javax.swing.*;
 
 public class MathISP extends JFrame implements ActionListener {
   private JLabel questionLabel;
@@ -29,3 +29,4 @@ public class MathISP extends JFrame implements ActionListener {
     // Generate a new question
     generateQuestion();
   }
+}
