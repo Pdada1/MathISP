@@ -1,37 +1,52 @@
 
 import java.awt.*;
-import java.util.Random;
-import javax.swing.*;
 
-
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
-
-/**
- *
- * @author ishu
- */
 public class AskQuestion extends javax.swing.JDialog {
 
-    private int player1Score;
-    private int player2Score;
+    private int[] playerScores;
     private boolean[] vectPressed;
+    private boolean[] diffPressed;
+    private boolean[] curvePressed;
+    private boolean[] hopPressed;
+    private boolean[] intPressed;
     private String questionType;
     private int ptsAdded;
+    private int turn;
+    private int numPlayers;
+    
+    private VectorQuestions vectQ;
+    private DiffQuestions diffQ;
+    private CurveQuestions curveQ;
+    private LHopitalQuestions hopQ;
+    private IntegrationQuestions intQ;
     
     /**
      * Creates new form AskQuestion
      */
-    public AskQuestion(java.awt.Frame parent, boolean modal, int p1Score, int p2Score) {
+    public AskQuestion(java.awt.Frame parent, boolean modal, int numPlayers, VectorQuestions vectQ, DiffQuestions diffQ, CurveQuestions curveQ, LHopitalQuestions hopQ, IntegrationQuestions intQ) {
         super(parent, modal);
-        initComponents();
-        this.player1Score = p1Score;
-        this.player2Score = p2Score;
+        
         vectPressed = new boolean[5];
+        diffPressed = new boolean[5];
+        curvePressed = new boolean[5];
+        hopPressed = new boolean[5];
+        intPressed = new boolean[5];
+        
         ptsAdded = 0;
         questionType = "";
+        
+        turn = 1;
+        
+        playerScores = new int[numPlayers];
+        this.numPlayers = numPlayers;
+        
+        this.hopQ = hopQ;
+        this.intQ = intQ;
+        this.vectQ = vectQ;
+        this.diffQ = diffQ;
+        this.curveQ = curveQ;
+        
+        initComponents();
     }
 
     /**
@@ -77,10 +92,15 @@ public class AskQuestion extends javax.swing.JDialog {
         int1 = new javax.swing.JButton();
         player1Label = new javax.swing.JTextField();
         player2Label = new javax.swing.JTextField();
-        questionLabel = new javax.swing.JLabel();
         answerField = new javax.swing.JTextField();
         check = new javax.swing.JButton();
         resultLabel = new javax.swing.JLabel();
+        turnLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        questionLabel = new javax.swing.JTextArea();
+        help = new javax.swing.JButton();
+        restart = new javax.swing.JButton();
+        creditsLabel = new javax.swing.JButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -94,12 +114,15 @@ public class AskQuestion extends javax.swing.JDialog {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Calculus Jeopardy");
+        setBackground(new java.awt.Color(204, 255, 255));
+        setForeground(java.awt.Color.lightGray);
 
         vect1.setBackground(new java.awt.Color(6, 12, 223));
         vect1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         vect1.setForeground(new java.awt.Color(255, 255, 255));
         vect1.setText("100");
-        vect1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        vect1.setBorder(null);
         vect1.setBorderPainted(false);
         vect1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,7 +139,7 @@ public class AskQuestion extends javax.swing.JDialog {
         vect2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         vect2.setForeground(new java.awt.Color(255, 255, 255));
         vect2.setText("200");
-        vect2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        vect2.setBorder(null);
         vect2.setBorderPainted(false);
         vect2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,7 +151,7 @@ public class AskQuestion extends javax.swing.JDialog {
         vect3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         vect3.setForeground(new java.awt.Color(255, 255, 255));
         vect3.setText("300");
-        vect3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        vect3.setBorder(null);
         vect3.setBorderPainted(false);
         vect3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,7 +163,7 @@ public class AskQuestion extends javax.swing.JDialog {
         vect4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         vect4.setForeground(new java.awt.Color(255, 255, 255));
         vect4.setText("400");
-        vect4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        vect4.setBorder(null);
         vect4.setBorderPainted(false);
         vect4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,7 +175,7 @@ public class AskQuestion extends javax.swing.JDialog {
         vect5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         vect5.setForeground(new java.awt.Color(255, 255, 255));
         vect5.setText("500");
-        vect5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        vect5.setBorder(null);
         vect5.setBorderPainted(false);
         vect5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,7 +191,7 @@ public class AskQuestion extends javax.swing.JDialog {
         diff2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         diff2.setForeground(new java.awt.Color(255, 255, 255));
         diff2.setText("200");
-        diff2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        diff2.setBorder(null);
         diff2.setBorderPainted(false);
         diff2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,7 +203,7 @@ public class AskQuestion extends javax.swing.JDialog {
         diff3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         diff3.setForeground(new java.awt.Color(255, 255, 255));
         diff3.setText("300");
-        diff3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        diff3.setBorder(null);
         diff3.setBorderPainted(false);
         diff3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,7 +215,7 @@ public class AskQuestion extends javax.swing.JDialog {
         diff4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         diff4.setForeground(new java.awt.Color(255, 255, 255));
         diff4.setText("400");
-        diff4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        diff4.setBorder(null);
         diff4.setBorderPainted(false);
         diff4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,7 +231,7 @@ public class AskQuestion extends javax.swing.JDialog {
         diff5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         diff5.setForeground(new java.awt.Color(255, 255, 255));
         diff5.setText("500");
-        diff5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        diff5.setBorder(null);
         diff5.setBorderPainted(false);
         diff5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -220,7 +243,7 @@ public class AskQuestion extends javax.swing.JDialog {
         diff1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         diff1.setForeground(new java.awt.Color(255, 255, 255));
         diff1.setText("100");
-        diff1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        diff1.setBorder(null);
         diff1.setBorderPainted(false);
         diff1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -232,7 +255,7 @@ public class AskQuestion extends javax.swing.JDialog {
         curve2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         curve2.setForeground(new java.awt.Color(255, 255, 255));
         curve2.setText("200");
-        curve2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        curve2.setBorder(null);
         curve2.setBorderPainted(false);
         curve2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -244,7 +267,7 @@ public class AskQuestion extends javax.swing.JDialog {
         curve3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         curve3.setForeground(new java.awt.Color(255, 255, 255));
         curve3.setText("300");
-        curve3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        curve3.setBorder(null);
         curve3.setBorderPainted(false);
         curve3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -256,7 +279,7 @@ public class AskQuestion extends javax.swing.JDialog {
         curve4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         curve4.setForeground(new java.awt.Color(255, 255, 255));
         curve4.setText("400");
-        curve4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        curve4.setBorder(null);
         curve4.setBorderPainted(false);
         curve4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -272,7 +295,7 @@ public class AskQuestion extends javax.swing.JDialog {
         curve5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         curve5.setForeground(new java.awt.Color(255, 255, 255));
         curve5.setText("500");
-        curve5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        curve5.setBorder(null);
         curve5.setBorderPainted(false);
         curve5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -284,7 +307,7 @@ public class AskQuestion extends javax.swing.JDialog {
         curve1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         curve1.setForeground(new java.awt.Color(255, 255, 255));
         curve1.setText("100");
-        curve1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        curve1.setBorder(null);
         curve1.setBorderPainted(false);
         curve1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -296,7 +319,7 @@ public class AskQuestion extends javax.swing.JDialog {
         hop2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         hop2.setForeground(new java.awt.Color(255, 255, 255));
         hop2.setText("200");
-        hop2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        hop2.setBorder(null);
         hop2.setBorderPainted(false);
         hop2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -308,7 +331,7 @@ public class AskQuestion extends javax.swing.JDialog {
         hop3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         hop3.setForeground(new java.awt.Color(255, 255, 255));
         hop3.setText("300");
-        hop3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        hop3.setBorder(null);
         hop3.setBorderPainted(false);
         hop3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -320,7 +343,7 @@ public class AskQuestion extends javax.swing.JDialog {
         hop4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         hop4.setForeground(new java.awt.Color(255, 255, 255));
         hop4.setText("400");
-        hop4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        hop4.setBorder(null);
         hop4.setBorderPainted(false);
         hop4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -336,7 +359,7 @@ public class AskQuestion extends javax.swing.JDialog {
         hop5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         hop5.setForeground(new java.awt.Color(255, 255, 255));
         hop5.setText("500");
-        hop5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        hop5.setBorder(null);
         hop5.setBorderPainted(false);
         hop5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -348,7 +371,7 @@ public class AskQuestion extends javax.swing.JDialog {
         hop1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         hop1.setForeground(new java.awt.Color(255, 255, 255));
         hop1.setText("100");
-        hop1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        hop1.setBorder(null);
         hop1.setBorderPainted(false);
         hop1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -360,7 +383,7 @@ public class AskQuestion extends javax.swing.JDialog {
         int2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         int2.setForeground(new java.awt.Color(255, 255, 255));
         int2.setText("200");
-        int2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        int2.setBorder(null);
         int2.setBorderPainted(false);
         int2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -372,7 +395,7 @@ public class AskQuestion extends javax.swing.JDialog {
         int3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         int3.setForeground(new java.awt.Color(255, 255, 255));
         int3.setText("300");
-        int3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        int3.setBorder(null);
         int3.setBorderPainted(false);
         int3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -384,7 +407,7 @@ public class AskQuestion extends javax.swing.JDialog {
         int4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         int4.setForeground(new java.awt.Color(255, 255, 255));
         int4.setText("400");
-        int4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        int4.setBorder(null);
         int4.setBorderPainted(false);
         int4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -400,7 +423,7 @@ public class AskQuestion extends javax.swing.JDialog {
         int5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         int5.setForeground(new java.awt.Color(255, 255, 255));
         int5.setText("500");
-        int5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        int5.setBorder(null);
         int5.setBorderPainted(false);
         int5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -412,7 +435,7 @@ public class AskQuestion extends javax.swing.JDialog {
         int1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         int1.setForeground(new java.awt.Color(255, 255, 255));
         int1.setText("100");
-        int1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 12, 223), 1, true));
+        int1.setBorder(null);
         int1.setBorderPainted(false);
         int1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -421,30 +444,16 @@ public class AskQuestion extends javax.swing.JDialog {
         });
 
         player1Label.setEditable(false);
+        player1Label.setBackground(new java.awt.Color(230, 255, 251));
         player1Label.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        player1Label.setText("Player 1 Score: " + String.valueOf(player1Score)
+        player1Label.setText("Player 1 Score: " + String.valueOf(playerScores[0])
         );
-        player1Label.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                player1LabelActionPerformed(evt);
-            }
-        });
 
         player2Label.setEditable(false);
+        player2Label.setBackground(new java.awt.Color(255, 230, 234));
         player2Label.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        player2Label.setText("Player 2 Score: " + String.valueOf(player2Score)
+        player2Label.setText("Player 2 Score: " + String.valueOf(playerScores[1])
         );
-        player2Label.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                player2LabelActionPerformed(evt);
-            }
-        });
-
-        questionLabel.setBackground(new java.awt.Color(6, 12, 223));
-        questionLabel.setForeground(new java.awt.Color(255, 255, 255));
-        questionLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        questionLabel.setText(" ");
-        questionLabel.setOpaque(true);
 
         answerField.setForeground(new java.awt.Color(125, 125, 125));
         answerField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -452,7 +461,10 @@ public class AskQuestion extends javax.swing.JDialog {
         answerField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         answerField.setName(""); // NOI18N
 
+        check.setBackground(new java.awt.Color(204, 255, 204));
         check.setText("Check");
+        check.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        check.setBorderPainted(false);
         check.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkActionPerformed(evt);
@@ -462,18 +474,76 @@ public class AskQuestion extends javax.swing.JDialog {
         resultLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         resultLabel.setText(" ");
 
+        turnLabel.setBackground(new java.awt.Color(230, 255, 251));
+        turnLabel.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        turnLabel.setForeground(new java.awt.Color(6, 12, 223));
+        turnLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        turnLabel.setText("Player " + turn + "'s Turn");
+        turnLabel.setOpaque(true);
+
+        questionLabel.setEditable(false);
+        questionLabel.setBackground(new java.awt.Color(6, 12, 223));
+        questionLabel.setColumns(20);
+        questionLabel.setForeground(new java.awt.Color(255, 255, 255));
+        questionLabel.setLineWrap(true);
+        questionLabel.setRows(5);
+        questionLabel.setText("  1. Select a question.\n  2. The question will appear at the bottom (here). \n  3. "
+            + "Type your answer with two decimal places, even if the answer is a whole \n      number. Assume radians "
+            + "for trigonometric functions.\n  4. Now it's the next player's turn.");
+        questionLabel.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(questionLabel);
+
+        help.setBackground(new java.awt.Color(204, 255, 204));
+        help.setText("Help");
+        help.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        help.setBorderPainted(false);
+        help.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpActionPerformed(evt);
+            }
+        });
+
+        restart.setBackground(new java.awt.Color(204, 255, 204));
+        restart.setText("Restart");
+        restart.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        restart.setBorderPainted(false);
+        restart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                restartActionPerformed(evt);
+            }
+        });
+
+        creditsLabel.setBackground(new java.awt.Color(204, 255, 204));
+        creditsLabel.setText("Credits");
+        creditsLabel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        creditsLabel.setBorderPainted(false);
+        creditsLabel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                creditsLabelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(menuTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(88, 88, 88)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(86, 86, 86)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(player1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(player2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(resultLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(answerField, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(check, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(vect1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(vect4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -513,29 +583,32 @@ public class AskQuestion extends javax.swing.JDialog {
                             .addComponent(int2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(int5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(intLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(player1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(player2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(resultLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(questionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(32, 32, 32)
-                                        .addComponent(answerField, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
-                                .addComponent(check)))
-                        .addGap(60, 60, 60)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(help, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(restart, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(creditsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(menuTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(91, 91, 91)
+                        .addComponent(turnLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(menuTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(menuTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(help)
+                            .addComponent(restart)
+                            .addComponent(creditsLabel)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(turnLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -603,13 +676,15 @@ public class AskQuestion extends javax.swing.JDialog {
                     .addComponent(player1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(player2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
-                    .addComponent(check, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(answerField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(questionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(resultLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(check, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(answerField, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(resultLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -618,8 +693,8 @@ public class AskQuestion extends javax.swing.JDialog {
     private void vect1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vect1ActionPerformed
         if(vectPressed[0] == false){  
             questionType = "Vect";
-            showQuestion();
             ptsAdded = 100;
+            showQuestion();
             vect1.setBackground(Color.white);
             vectPressed[0] = true;
             questionType = "";
@@ -627,161 +702,418 @@ public class AskQuestion extends javax.swing.JDialog {
     }//GEN-LAST:event_vect1ActionPerformed
 
     private void vect2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vect2ActionPerformed
-        // TODO add your handling code here:
+        if(vectPressed[1] == false){  
+            questionType = "Vect";
+            ptsAdded = 200;
+            showQuestion();
+            vect2.setBackground(Color.white);
+            vectPressed[1] = true;
+            questionType = "";
+        }
     }//GEN-LAST:event_vect2ActionPerformed
 
     private void vect3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vect3ActionPerformed
-        // TODO add your handling code here:
+        if(vectPressed[2] == false){  
+            questionType = "Vect";
+            ptsAdded = 300;
+            showQuestion();
+            vect3.setBackground(Color.white);
+            vectPressed[2] = true;
+            questionType = "";
+        }
     }//GEN-LAST:event_vect3ActionPerformed
 
     private void vect4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vect4ActionPerformed
-        // TODO add your handling code here:
+        if(vectPressed[3] == false){  
+            questionType = "Vect";
+            ptsAdded = 400;
+            showQuestion();
+            vect4.setBackground(Color.white);
+            vectPressed[3] = true;
+            questionType = "";
+        }
     }//GEN-LAST:event_vect4ActionPerformed
 
     private void vect5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vect5ActionPerformed
-        // TODO add your handling code here:
+        if(vectPressed[4] == false){  
+            questionType = "Vect";
+            ptsAdded = 500;
+            showQuestion();
+            vect5.setBackground(Color.white);
+            vectPressed[4] = true;
+            questionType = "";
+        }
     }//GEN-LAST:event_vect5ActionPerformed
 
     private void diff2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diff2ActionPerformed
-        // TODO add your handling code here:
+        if(diffPressed[1] == false){  
+            questionType = "Diff";
+            ptsAdded = 200;
+            showQuestion();
+            diff2.setBackground(Color.white);
+            diffPressed[1] = true;
+            questionType = "";
+        }
     }//GEN-LAST:event_diff2ActionPerformed
 
     private void diff3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diff3ActionPerformed
-        // TODO add your handling code here:
+        if(diffPressed[2] == false){  
+            questionType = "Diff";
+            ptsAdded = 300;
+            showQuestion();
+            diff3.setBackground(Color.white);
+            diffPressed[2] = true;
+            questionType = "";
+        }
     }//GEN-LAST:event_diff3ActionPerformed
 
     private void diff4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diff4ActionPerformed
-        // TODO add your handling code here:
+        if(diffPressed[3] == false){  
+            questionType = "Diff";
+            ptsAdded = 400;
+            showQuestion();
+            diff4.setBackground(Color.white);
+            diffPressed[3] = true;
+            questionType = "";
+        }
     }//GEN-LAST:event_diff4ActionPerformed
 
     private void diff5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diff5ActionPerformed
-        // TODO add your handling code here:
+        if(diffPressed[4] == false){  
+            questionType = "Diff";
+            ptsAdded = 500;
+            showQuestion();
+            diff5.setBackground(Color.white);
+            diffPressed[4] = true;
+            questionType = "";
+        }
     }//GEN-LAST:event_diff5ActionPerformed
 
     private void diff1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diff1ActionPerformed
-        // TODO add your handling code here:
+        if(diffPressed[0] == false){  
+            questionType = "Diff";
+            ptsAdded = 100;
+            showQuestion();
+            diff1.setBackground(Color.white);
+            diffPressed[0] = true;
+            questionType = "";
+        }
     }//GEN-LAST:event_diff1ActionPerformed
 
     private void curve2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_curve2ActionPerformed
-        // TODO add your handling code here:
+        if(curvePressed[1] == false){  
+            questionType = "Curve";
+            ptsAdded = 200;
+            showQuestion();
+            curve2.setBackground(Color.white);
+            curvePressed[1] = true;
+            questionType = "";
+        }
     }//GEN-LAST:event_curve2ActionPerformed
 
     private void curve3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_curve3ActionPerformed
-        // TODO add your handling code here:
+        if(curvePressed[2] == false){  
+            questionType = "Curve";
+            ptsAdded = 300;
+            showQuestion();
+            curve3.setBackground(Color.white);
+            curvePressed[2] = true;
+            questionType = "";
+        }
     }//GEN-LAST:event_curve3ActionPerformed
 
     private void curve4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_curve4ActionPerformed
-        // TODO add your handling code here:
+        if(curvePressed[3] == false){  
+            questionType = "Curve";
+            ptsAdded = 400;
+            showQuestion();
+            curve4.setBackground(Color.white);
+            curvePressed[3] = true;
+            questionType = "";
+        }
     }//GEN-LAST:event_curve4ActionPerformed
 
     private void curve5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_curve5ActionPerformed
-        // TODO add your handling code here:
+        if(curvePressed[4] == false){  
+            questionType = "Curve";
+            ptsAdded = 500;
+            showQuestion();
+            curve5.setBackground(Color.white);
+            curvePressed[4] = true;
+            questionType = "";
+        }
     }//GEN-LAST:event_curve5ActionPerformed
 
     private void curve1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_curve1ActionPerformed
-        // TODO add your handling code here:
+        if(curvePressed[0] == false){  
+            questionType = "Curve";
+            ptsAdded = 100;
+            showQuestion();
+            curve1.setBackground(Color.white);
+            curvePressed[0] = true;
+            questionType = "";
+        }
     }//GEN-LAST:event_curve1ActionPerformed
 
     private void hop2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hop2ActionPerformed
-        // TODO add your handling code here:
+        if(hopPressed[1] == false){  
+            questionType = "LHopital";
+            ptsAdded = 200;
+            showQuestion();
+            hop2.setBackground(Color.white);
+            hopPressed[1] = true;
+            questionType = "";
+        }
     }//GEN-LAST:event_hop2ActionPerformed
 
     private void hop3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hop3ActionPerformed
-        // TODO add your handling code here:
+        if(hopPressed[2] == false){  
+            questionType = "LHopital";
+            ptsAdded = 300;
+            showQuestion();
+            hop3.setBackground(Color.white);
+            hopPressed[2] = true;
+            questionType = "";
+        }
     }//GEN-LAST:event_hop3ActionPerformed
 
     private void hop4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hop4ActionPerformed
-        // TODO add your handling code here:
+        if(hopPressed[3] == false){  
+            questionType = "LHopital";
+            ptsAdded = 400;
+            showQuestion();
+            hop4.setBackground(Color.white);
+            hopPressed[3] = true;
+            questionType = "";
+        }
     }//GEN-LAST:event_hop4ActionPerformed
 
     private void hop5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hop5ActionPerformed
-        // TODO add your handling code here:
+        if(hopPressed[4] == false){  
+            questionType = "LHopital";
+            ptsAdded = 500;
+            showQuestion();
+            hop5.setBackground(Color.white);
+            hopPressed[4] = true;
+            questionType = "";
+        }
     }//GEN-LAST:event_hop5ActionPerformed
 
     private void hop1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hop1ActionPerformed
-        // TODO add your handling code here:
+        if(hopPressed[0] == false){  
+            questionType = "LHopital";
+            ptsAdded = 100;
+            showQuestion();
+            hop1.setBackground(Color.white);
+            hopPressed[0] = true;
+            questionType = "";
+        }
     }//GEN-LAST:event_hop1ActionPerformed
 
     private void int2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_int2ActionPerformed
-        // TODO add your handling code here:
+        if(intPressed[1] == false){  
+            questionType = "Int";
+            ptsAdded = 200;
+            showQuestion();
+            int2.setBackground(Color.white);
+            intPressed[1] = true;
+            questionType = "";
+        }
     }//GEN-LAST:event_int2ActionPerformed
 
     private void int3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_int3ActionPerformed
-        // TODO add your handling code here:
+        if(intPressed[2] == false){  
+            questionType = "Int";
+            ptsAdded = 300;
+            showQuestion();
+            int3.setBackground(Color.white);
+            intPressed[2] = true;
+            questionType = "";
+        }
     }//GEN-LAST:event_int3ActionPerformed
 
     private void int4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_int4ActionPerformed
-        // TODO add your handling code here:
+        if(intPressed[3] == false){  
+            questionType = "Int";
+            ptsAdded = 400;
+            showQuestion();
+            int4.setBackground(Color.white);
+            intPressed[3] = true;
+            questionType = "";
+        }
     }//GEN-LAST:event_int4ActionPerformed
 
     private void int5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_int5ActionPerformed
-        // TODO add your handling code here:
+        if(intPressed[4] == false){  
+            questionType = "Int";
+            ptsAdded = 500;
+            showQuestion();
+            int5.setBackground(Color.white);
+            intPressed[4] = true;
+            questionType = "";
+        }
     }//GEN-LAST:event_int5ActionPerformed
 
     private void int1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_int1ActionPerformed
-        // TODO add your handling code here:
+        if(intPressed[0] == false){  
+            questionType = "Int";
+            ptsAdded = 100;
+            showQuestion();
+            int1.setBackground(Color.white);
+            intPressed[0] = true;
+            questionType = "";
+        }
     }//GEN-LAST:event_int1ActionPerformed
-
-    private void player1LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_player1LabelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_player1LabelActionPerformed
-
-    private void player2LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_player2LabelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_player2LabelActionPerformed
 
     private void checkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkActionPerformed
         // Get the user's answer
-        int answer = Integer.parseInt(answerField.getText().trim());
+        try {
+            double answer = Double.parseDouble(answerField.getText().trim());
+            answer = Math.round(answer*100.0)/100.0;
 
-        // Get the correct answer from the check button's client property
-        int correctAnswer = (int) check.getClientProperty("correctAnswer");
+            // Get the correct answer from the check button's client property
+            double correctAnswer = (double) check.getClientProperty("correctAnswer");
+            correctAnswer = Math.round(correctAnswer*100.0)/100.0;
 
-        if (answer == correctAnswer) {
-          resultLabel.setText("Correct!");
-          
-          player1Score += ptsAdded;
-          player1Label.setText("Player 1 Score: " + String.valueOf(player1Score));
-          player1Label.repaint();
-          ptsAdded = 0;
-          
-        } else {
-          resultLabel.setText("Incorrect. Answer: " + correctAnswer);
-        }
-        answerField.setText("");
+            if (answer == correctAnswer) {
+                resultLabel.setText("Correct!");
+
+                if(turn == 1) {
+                      playerScores[turn-1] += ptsAdded;
+                      player1Label.setText("Player 1 Score: " + String.valueOf(playerScores[turn-1]));
+                      player1Label.repaint();
+                } else if (turn == 2) {
+                      playerScores[turn-1] += ptsAdded;
+                      player2Label.setText("Player 2 Score: " + String.valueOf(playerScores[turn-1]));
+                      player2Label.repaint();
+                }
+            } else {
+                resultLabel.setText("Incorrect. Answer: " + correctAnswer);
+            }
+            
+            ptsAdded = 0;
+            changeTurn();
+            
+            answerField.setText("");
+        } catch (Exception e){System.out.println(e);}
     }//GEN-LAST:event_checkActionPerformed
+
+    private void restartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restartActionPerformed
+        vectPressed = new boolean[5];
+        diffPressed = new boolean[5];
+        curvePressed = new boolean[5];
+        hopPressed = new boolean[5];
+        intPressed = new boolean[5];
+        
+        ptsAdded = 0;
+        questionType = "";
+        
+        turn = 1;
+        
+        playerScores = new int[numPlayers];
+        
+        Color jeopardy = new Color(6,12,223);
+        vect1.setBackground(jeopardy);
+        vect2.setBackground(jeopardy);
+        vect3.setBackground(jeopardy);
+        vect4.setBackground(jeopardy);
+        vect5.setBackground(jeopardy);
+        
+        diff1.setBackground(jeopardy);
+        diff2.setBackground(jeopardy);
+        diff3.setBackground(jeopardy);
+        diff4.setBackground(jeopardy);
+        diff5.setBackground(jeopardy);
+        
+        curve1.setBackground(jeopardy);
+        curve2.setBackground(jeopardy);
+        curve3.setBackground(jeopardy);
+        curve4.setBackground(jeopardy);
+        curve5.setBackground(jeopardy);
+        
+        hop1.setBackground(jeopardy);
+        hop2.setBackground(jeopardy);
+        hop3.setBackground(jeopardy);
+        hop4.setBackground(jeopardy);
+        hop5.setBackground(jeopardy);
+        
+        int1.setBackground(jeopardy);
+        int2.setBackground(jeopardy);
+        int3.setBackground(jeopardy);
+        int4.setBackground(jeopardy);
+        int5.setBackground(jeopardy);
+        
+        player1Label.setText("Player 1 Score: 0");
+        player2Label.setText("Player 2 Score: 0");
+        turnLabel.setText("Player 1's Turn");
+        turnLabel.setBackground(new Color(230,255,251));
+        questionLabel.setText("  1. Select a question.\n  2. The question will appear at the bottom (here). \n  3. "
+                + "Type your answer with two decimal places, even if the answer is a whole \n      number. Assume radians "
+                + "for trigonometric functions.\n  4. Now it's the next player's turn.");
+        this.repaint();
+    }//GEN-LAST:event_restartActionPerformed
+
+    private void helpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpActionPerformed
+        questionLabel.setText("  1. Select a question.\n  2. The question will appear at the bottom (here). \n  3. "
+                + "Type your answer with two decimal places, even if the answer is a whole \n      number. Assume radians "
+                + "for trigonometric functions.\n  4. Now it's the next player's turn.");
+    }//GEN-LAST:event_helpActionPerformed
+
+    private void creditsLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditsLabelActionPerformed
+        questionLabel.setText("  Names: Ishan Garg, Pranav Mahabal, and Krish Patel. \n  Course: MCV4U0-1\n  Date: January 9, 2023\n  Teacher: Ms. Iulia Gugoiu");
+    }//GEN-LAST:event_creditsLabelActionPerformed
     
     private void showQuestion() {
-        VectorQuestions vectQ = new VectorQuestions();
         String question = "";
-        int correctAnswer = 0;
+        double correctAnswer = 0.0;
         
+        this.repaint();
+        turnLabel.repaint();
         switch (questionType) {
-            case "Vect":
-                question = vectQ.getQuestion();
-                correctAnswer = vectQ.getVectCorrectAns();
-                break;
-            case "Diff":
-                
-                break;
-            case "Curve":
-                
-                break;
-            case "L'Hopital":
-                
-                break;
-          case "Int":
-                
-                break;
+            case "Vect" -> {
+                question = vectQ.getQuestion(ptsAdded);
+                correctAnswer = vectQ.getCorrectAns();
+            }
+            case "Diff" -> {
+                question = diffQ.getQuestion(ptsAdded);
+                correctAnswer = diffQ.getCorrectAns();
+            }
+            case "Curve" -> {
+                question = curveQ.getQuestion(ptsAdded);
+                correctAnswer = curveQ.getCorrectAns();
+            }
+            case "LHopital" -> {
+                question = hopQ.getQuestion(ptsAdded);
+                correctAnswer = hopQ.getCorrectAns();
+            }
+            case "Int" -> {
+                question = intQ.getQuestion(ptsAdded);
+                correctAnswer = intQ.getCorrectAns();
+            }
         }
         
         questionLabel.setText(question);
         check.putClientProperty("correctAnswer", correctAnswer);
     }
     
+    private void changeTurn() {
+        turn++;
+        if(turn > numPlayers) {
+            turn = 1;
+        }
+        turnLabel.setText("Player " + turn + "'s Turn");
+        if(turn == 1) {
+            turnLabel.setBackground(new Color(230,255,251));
+        } else if(turn == 2) {
+            turnLabel.setBackground(new Color(255,230,234));
+        }
+        turnLabel.repaint();
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTextField answerField;
     private javax.swing.JButton check;
+    private javax.swing.JButton creditsLabel;
     private javax.swing.JButton curve1;
     private javax.swing.JButton curve2;
     private javax.swing.JButton curve3;
@@ -794,6 +1126,7 @@ public class AskQuestion extends javax.swing.JDialog {
     private javax.swing.JButton diff4;
     private javax.swing.JButton diff5;
     private javax.swing.JLabel diffLabel;
+    private javax.swing.JButton help;
     private javax.swing.JButton hop1;
     private javax.swing.JButton hop2;
     private javax.swing.JButton hop3;
@@ -807,11 +1140,14 @@ public class AskQuestion extends javax.swing.JDialog {
     private javax.swing.JButton int5;
     private javax.swing.JLabel intLabel;
     private javax.swing.JFrame jFrame1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel menuTitle;
     private javax.swing.JTextField player1Label;
     private javax.swing.JTextField player2Label;
-    javax.swing.JLabel questionLabel;
+    private javax.swing.JTextArea questionLabel;
+    private javax.swing.JButton restart;
     private javax.swing.JLabel resultLabel;
+    private javax.swing.JLabel turnLabel;
     private javax.swing.JButton vect1;
     private javax.swing.JButton vect2;
     private javax.swing.JButton vect3;

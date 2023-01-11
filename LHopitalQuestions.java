@@ -1,7 +1,7 @@
 
 import java.util.Random;
 
-public class VectorQuestions {
+public class LHopitalQuestions {
     
     private int correctAnswer;
     private String operator;
@@ -10,7 +10,7 @@ public class VectorQuestions {
     private String question;
     private Random rand;
 
-    public VectorQuestions() {
+    public LHopitalQuestions() {
       correctAnswer = 0;
       operator = "";
       x = 0;
