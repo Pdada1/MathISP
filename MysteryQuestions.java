@@ -34,7 +34,16 @@ public class MysteryQuestions {
     }
   
     private void generateQuestion1() {
+        x = rand.nextInt(7) + 0;
+        y = rand.nextInt(7) + 0;
+        int z = rand.nextInt(7) + 0;
+        int x1 = rand.nextInt(7) + 0;
+        int y1 = rand.nextInt(7) + 0;
+        int z1 = rand.nextInt(7) + 0;
+
+        correctAnswer = x * x1 + y * y1 + z * z1;
         
+        question = "Find the dot product of the following two vectors: (" + x + "," + y + "," + z + ") and (" + x1 + "," + y1 + "," + z1 + ").";
     }
     
     private void generateQuestion2() {
@@ -43,6 +52,7 @@ public class MysteryQuestions {
         double approxX = rand.nextInt(2) + x + 1;
         int z = rand.nextInt(5) + 1;
         int g = rand.nextInt(5) + 1;
+        
         double h = Math.round(((approxX-x)/(rand.nextInt(100) + 1))*100.0)/100.0;
         while((approxX-x)%h != 0 || (approxX-x > 1.0 && h < 1.0) || (approxX-x > 1.0 && h > 1.0)) {
             h = Math.round(((approxX-x)/(rand.nextInt(100) + 1))*100.0)/100.0;
