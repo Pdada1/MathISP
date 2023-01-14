@@ -14,12 +14,31 @@ public class DiffQuestions {
     private Random rand;
     private Interpreter solver;
     private String[] functions;
+    private String[] xExps;
 
     public DiffQuestions() {
         correctAnswer = 0.0;
         expression = "";
         function = "";
-        functions = new String[]{"Math.sin(x)", "Math.cos(x)", "Math.tan(x)", "Math.log(x)", "Math.log10(x)"};
+        functions = new String[]{
+            "Math.sin(x)", 
+            "Math.cos(x)", 
+            "Math.tan(x)", 
+            "Math.log(x)", 
+            "Math.log10(x)", 
+            "Math.acos(x)", 
+            "Math.asin(x)", 
+            "Math.atan(x)", 
+            "Math.cosh(x)", 
+            "Math.sinh(x)", 
+            "Math.tanh(x)"
+        };
+        xExps = new String[]{
+            "Math.pow(x,2)", 
+            "Math.pow(x,3)", 
+            "Math.sqrt(x)", 
+            "y*x"
+        };
         x = 0;
         y = 0;
         question = "";
@@ -30,11 +49,11 @@ public class DiffQuestions {
     private void generateQuestion1() {
         x = rand.nextInt(20) + 1;
         double h = 0.00001;
-        int i = rand.nextInt(5);  
+        int i = rand.nextInt(5) + 0;  
         function = "";
         function = function.concat(functions[i]);
-        i = rand.nextInt(5);        
-        function = function.concat("*" + functions[i]);
+        i = rand.nextInt(5) + 0;        
+        function = function.concat("+" + functions[i]);
                
         expression = "(" + function.replaceAll("x", String.valueOf(x+h)) + "-" + function.replaceAll("x", String.valueOf(x)) + ")/" + h;
 
@@ -49,19 +68,92 @@ public class DiffQuestions {
     }
     
     private void generateQuestion2() {
+        x = rand.nextInt(20) + 1;
+        double h = 0.00001;
+        int i = rand.nextInt(11) + 0;  
+        function = "";
+        function = function.concat(functions[i]);
+        i = rand.nextInt(11) + 0;        
+        function = function.concat("*" + functions[i]);
+               
+        expression = "(" + function.replaceAll("x", String.valueOf(x+h)) + "-" + function.replaceAll("x", String.valueOf(x)) + ")/" + h;
+
+        try {
+            solver.eval("result = " + expression);
+            correctAnswer = Double.parseDouble(String.valueOf(solver.get("result")));
+        } catch(Exception e) {}
+                
+        function = function.replaceAll("log10", "temp").replaceAll("log", "ln").replaceAll("temp", "log10").replaceAll("Math.", "");
         
+        question = "What is the slope of the tangent of y = " + function + " at x = " + x + "?";
     }
 
     private void generateQuestion3() {
+        x = rand.nextInt(20) + 2;
+        y = rand.nextInt(100) + 2;
+        double h = 0.00001;
+        int i = rand.nextInt(4) + 0;  
+        function = "";
+        function = function.concat("(" + xExps[i] + ")").replaceAll("y", String.valueOf(y));
+        i = rand.nextInt(4) + 0;
+        y = rand.nextInt(100) + 2;
+        function = function.concat("/(x+y)").replaceAll("y", String.valueOf(y));
+               
+        expression = "(" + function.replaceAll("x", String.valueOf(x+h)) + "-" + function.replaceAll("x", String.valueOf(x)) + ")/" + h;
+
+        try {
+            solver.eval("result = " + expression);
+            correctAnswer = Double.parseDouble(String.valueOf(solver.get("result")));
+        } catch(Exception e) {}
+                
+        function = function.replaceAll("y", String.valueOf(y)).replaceAll("Math.", "");
         
+        question = "What is the slope of the tangent of y = " + function + " at x = " + x + "?";
     }
 
     private void generateQuestion4() {
+        x = rand.nextInt(20) + 1;
+        double h = 0.00001;
+        int i = rand.nextInt(5) + 0;  
+        function = "";
+        function = function.concat(functions[i]);
+        i = rand.nextInt(3) + 0;
+        y = rand.nextInt(100) + 2;
+        function = function.replaceFirst("x", xExps[i]).replaceAll("y", String.valueOf(y));
+               
+        expression = "(" + function.replaceAll("x", String.valueOf(x+h)) + "-" + function.replaceAll("x", String.valueOf(x)) + ")/" + h;
+
+        try {
+            solver.eval("result = " + expression);
+            correctAnswer = 1.0/Double.parseDouble(String.valueOf(solver.get("result")));
+        } catch(Exception e) {}
+                
+        function = function.replaceAll("log10", "temp").replaceAll("log", "ln").replaceAll("temp", "log10").replaceAll("Math.", "");
         
+        question = "What is the normal of y = " + function + " at x = " + x + "?";
     }
 
     private void generateQuestion5() {
+        double g = Math.round((double)(rand.nextInt(200) + 0))/100.0;
+        double h = 0.000000001;
+        y = rand.nextInt(3) + 2;
+        function = "";
+        function = function.concat("Math.pow(" + xExps[3] + ",");
+        function = function.replaceAll("y", String.valueOf(y));
+        y = rand.nextInt(3) + 2;
+        function = function.concat(xExps[3] + ")");
+        function = function.replaceAll("y", String.valueOf(y));
+               
+        expression = "(" + function.replaceAll("x", String.valueOf(g+h)) + "-" + function.replaceAll("x", String.valueOf(g)) + ")/" + h;
+
+        try {
+            solver.eval("result = " + expression);
+            correctAnswer = Double.parseDouble(String.valueOf(solver.get("result")));
+        } catch(Exception e) {}
+                
+        function = function.replaceAll("Math.", "");
         
+        question = "What is the slope of the tangent of y = " + function + " at x = " + g + "?";
     }
    
     public double getCorrectAns() {

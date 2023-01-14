@@ -1,10 +1,10 @@
 public class CalcJeopardy {
     
     static int numPlayers = 2;
-    static VectorQuestions vectQ = new VectorQuestions();
+    static MysteryQuestions vectQ = new MysteryQuestions();
     static DiffQuestions diffQ = new DiffQuestions();
-    static CurveQuestions curveQ = new CurveQuestions();
-    static LHopitalQuestions hopQ = new LHopitalQuestions();
+    static ApplyDiffQuestions curveQ = new ApplyDiffQuestions();
+    static ApplyIntQuestions hopQ = new ApplyIntQuestions();
     static IntegrationQuestions intQ = new IntegrationQuestions();
     
     public static void main(String[] args) {
