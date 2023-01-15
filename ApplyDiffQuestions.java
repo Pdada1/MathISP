@@ -34,7 +34,12 @@ public class ApplyDiffQuestions {
     }
   
     private void generateQuestion1() {
+        x = rand.nextInt(10) + 1;
+        y = rand.nextInt(50) + 10;
         
+        correctAnswer = ((double)x)/(((double)(y*y))*Math.PI);
+        
+        question = "Air is being pumped into a spherical balloon at a rate of " + x + " cm^3/min. Determine the rate at which the radius of the balloon is increasing when its diameter is " + y + "cm.";
     }
     
     private void generateQuestion2() {
@@ -52,7 +57,15 @@ public class ApplyDiffQuestions {
     }
 
     private void generateQuestion3() {
+        x = rand.nextInt(20) + 5;
+        y = rand.nextInt(20) + 5;
+        int z = rand.nextInt(20) + 5;
         
+        correctAnswer = Math.sqrt((double)(y*y) + Math.pow((double)(-y*x)/(z),2));
+        
+        question = "A ladder is resting on a vertical wall. The foot of the ladder is sliding away at a rate of " + x 
+                + " m/s and is " + y + "m from the wall. At this moment, the top of the ladder is moving down at a "
+                + "rate of " + z + " m/s. Find the length of the ladder.";
     }
 
     private void generateQuestion4() {

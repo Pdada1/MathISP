@@ -1,5 +1,7 @@
 
 import java.awt.*;
+import java.io.*;
+import javax.sound.sampled.*;
 
 public class AskQuestion extends javax.swing.JDialog {
 
@@ -22,6 +24,14 @@ public class AskQuestion extends javax.swing.JDialog {
     private ApplyIntQuestions applyIntQ;
     private IntegrationQuestions intQ;
     
+    private File introFile;
+    private File correctFile;
+    private File incorrectFile;
+    private AudioInputStream intro;
+    private AudioInputStream correct;
+    private AudioInputStream incorrect;
+    private Clip clip;
+    
     public AskQuestion(java.awt.Frame parent, boolean modal, int numPlayers, MysteryQuestions mystQ, DiffQuestions diffQ, ApplyDiffQuestions applyDiffQ, ApplyIntQuestions applyIntQ, IntegrationQuestions intQ) {
         super(parent, modal);
         
@@ -30,6 +40,8 @@ public class AskQuestion extends javax.swing.JDialog {
         applyDiffPressed = new boolean[5];
         applyIntPressed = new boolean[5];
         intPressed = new boolean[5];
+        
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage("resources\\icon.png"));
         
         ptsAdded = 0;
         questionType = "";
@@ -46,6 +58,21 @@ public class AskQuestion extends javax.swing.JDialog {
         this.mystQ = mystQ;
         this.diffQ = diffQ;
         this.applyDiffQ = applyDiffQ;
+        
+        try {
+            introFile = new File("resources\\intro.wav");
+            correctFile = new File("resources\\correct.wav");
+            incorrectFile = new File("resources\\incorrect.wav");
+            
+            intro = AudioSystem.getAudioInputStream(introFile);
+            correct = AudioSystem.getAudioInputStream(correctFile);
+            incorrect = AudioSystem.getAudioInputStream(incorrectFile);
+            
+            clip = AudioSystem.getClip();
+            
+            clip.open(intro);
+            clip.start();
+        } catch (Exception e) {System.out.println(e);}
         
         initComponents();
     }
@@ -1073,7 +1100,9 @@ public class AskQuestion extends javax.swing.JDialog {
             System.out.println(questionType);
             if (correctAnswer == 0.0 && answer == correctAnswer) {
                 resultLabel.setText("Correct! Answer: " + correctAnswer);
-
+                clip.close();
+                clip.open(correct);
+                clip.start();
                 if(turn == 1) {
                       playerScores[turn-1] += ptsAdded;
                       player1Label.setText("Player 1 Score: " + String.valueOf(playerScores[turn-1]));
@@ -1085,7 +1114,9 @@ public class AskQuestion extends javax.swing.JDialog {
                 }
             } else if (Math.abs((answer-correctAnswer)/correctAnswer)<0.005 || (addTolerance && Math.abs((answer-correctAnswer)/correctAnswer)<0.05)) {
                 resultLabel.setText("Correct! Answer: " + correctAnswer);
-
+                clip.close();
+                clip.open(correct);
+                clip.start();
                 if(turn == 1) {
                       playerScores[turn-1] += ptsAdded;
                       player1Label.setText("Player 1 Score: " + String.valueOf(playerScores[turn-1]));
@@ -1096,6 +1127,9 @@ public class AskQuestion extends javax.swing.JDialog {
                       player2Label.repaint();
                 }
             } else {
+                clip.close();
+                clip.open(incorrect);
+                clip.start();
                 resultLabel.setText("Incorrect. Answer: " + correctAnswer);
             }
             
@@ -1151,8 +1185,24 @@ public class AskQuestion extends javax.swing.JDialog {
         int3.setBackground(jeopardy);
         int4.setBackground(jeopardy);
         int5.setBackground(jeopardy);
-        
+                
         activeQuestion = false;
+        clip.close();
+        
+        try {
+            introFile = new File("resources\\intro.wav");
+            correctFile = new File("resources\\correct.wav");
+            incorrectFile = new File("resources\\incorrect.wav");
+            
+            intro = AudioSystem.getAudioInputStream(introFile);
+            correct = AudioSystem.getAudioInputStream(correctFile);
+            incorrect = AudioSystem.getAudioInputStream(incorrectFile);
+            
+            clip = AudioSystem.getClip();
+            
+            clip.open(intro);
+            clip.start();
+        } catch (Exception e) {System.out.println(e);}
         
         player1Label.setText("Player 1 Score: 0");
         player2Label.setText("Player 2 Score: 0");

@@ -13,7 +13,7 @@ public class MysteryQuestions {
     private Random rand;
     private Interpreter solver;
     private String[] functions;
-    private String[] xExps;
+    private String[] pops;
 
     public MysteryQuestions() {
         correctAnswer = 0.0;
@@ -25,6 +25,14 @@ public class MysteryQuestions {
             "z*y+Math.sqrt(Math.pow(x,2)+Math.pow(y,2))",
             "Math.pow(x,2)-z*x*y+Math.pow(y,2)-g*y", 
             "Math.sin(x*y)-Math.pow(x,2)*y", 
+        };
+        pops = new String[]{
+            "fish", 
+            "bacteria", 
+            "kangaroos",
+            "squids", 
+            "beavers", 
+            "koalas", 
         };
         x = 0;
         y = 0;
@@ -79,15 +87,81 @@ public class MysteryQuestions {
     }
 
     private void generateQuestion3() {
+        double popM = 100 * rand.nextInt(3) + 300;
+        double popI = rand.nextInt(10);
+        double pop1 = popI * 3;
+        double yearC = rand.nextInt(3) + 4;
+        double A = (popM - popI) / popI;
+        double k = -Math.log(((popM / pop1) - 1) / A) / 1;
+        correctAnswer = popM / (1 + A * Math.exp(-k * yearC));
         
+        int i = rand.nextInt(pops.length) + 0;
+        String type = pops[i];
+
+        question = "Harry loves " + type + ", but Harry hates controlling them. Assuming a maximum of "
+                + popM + " " + type + "can be supported by the environment, and he starts off with " + popI + ", if in the first year his population of " + type + " rises to "
+                + pop1 + " how many " + type + " will he have in year " + yearC;
     }
 
     private void generateQuestion4() {
+        double x0 = rand.nextInt(11) - 5;
+        double y0 = rand.nextInt(11) - 5;
+        double z0 = rand.nextInt(11) - 5;
+
+        double ux = rand.nextInt(11) - 5;
+        double uy = rand.nextInt(11) - 5;
+        double uz = rand.nextInt(11) - 5;
+
+        double vx = rand.nextInt(11) - 5;
+        double vy = rand.nextInt(11) - 5;
+        double vz = rand.nextInt(11) - 5;
+
+        double cx = uy * vz - uz * vy;
+        double cy = uz * vx - ux * vz;
+        double cz = ux * vy - uy * vx;
+        double d = -(cx * x0 + cy * y0 + cz * z0);
+
+        double px0 = rand.nextInt(15) - 7;
+        double py0 = rand.nextInt(15) - 7;
+        double pz0 = rand.nextInt(15) - 7;
         
+        double dist = Math.abs(cx * px0 + cy * py0 + cz * pz0 + d)/ Math.sqrt(Math.pow(cx, 2) + Math.pow(cy, 2) + Math.pow(cz, 2));
+        correctAnswer = dist;
+        
+        question = "Given the plane in vector form: (" + x0 + ", " + y0 + ", " + z0 + ") + u(" + ux + ", " + uy + ", "
+                + uz + ")" + " + v(" + vx + ", " + vy + ", " + vz + ")"
+                + " and the point (" + px0 + ", " + py0 + ", " + pz0
+                + "), find the distance between this point and plane.";
     }
 
     private void generateQuestion5() {
-        
+        double pv0 = rand.nextInt(13) - 6;
+        double pv1 = rand.nextInt(13) - 6;
+        double pv2 = rand.nextInt(13) - 6;
+
+        double ux = rand.nextInt(7) - 3;
+        double uy = rand.nextInt(7) - 3;
+        double uz = rand.nextInt(7) - 3;
+
+        double vx = rand.nextInt(7) - 3;
+        double vy = rand.nextInt(7) - 3;
+        double vz = rand.nextInt(7) - 3;
+
+        double cx = uy * vz - uz * vy;
+        double cy = uz * vx - ux * vz;
+        double cz = ux * vy - uy * vx;
+
+        double coeff = rand.nextInt(5) - 2;
+
+        double pu0 = pv0 - cx + coeff * ux;
+        double pu1 = pv1 - cy + coeff * uy;
+        double pu2 = pv2 - cz + coeff * uz;
+
+        correctAnswer = Math.abs((pv0 - pu0) * cx + (pv1 - pu1) * cy + (pv2 - pu2) * cz)/ Math.abs(Math.sqrt(cx * cx + cy * cy + cz * cz));
+
+        question = "Given the skew lines in vector form: (" + pv0 + ", " + pv1 + ", " + pv2 + ") + v(" + vx + ", " + vy
+                + ", " + vz + ")" + " and (" + pu0 + ", " + pu1 + ", " + pu2 + ") + u(" + ux + ", " + uy + ", "
+                + uz + "), find the minimum distance between them.";
     }
    
     public double getCorrectAns() {
