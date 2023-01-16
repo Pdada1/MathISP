@@ -15,6 +15,7 @@ public class DiffQuestions {
     private Interpreter solver;
     private String[] functions;
     private String[] xExps;
+    private double h;
 
     public DiffQuestions() {
         correctAnswer = 0.0;
@@ -26,9 +27,7 @@ public class DiffQuestions {
             "Math.tan(x)", 
             "Math.log(x)", 
             "Math.log10(x)", 
-            "Math.acos(x)", 
-            "Math.asin(x)", 
-            "Math.atan(x)", 
+            "Math.sqrt(x)", 
             "Math.cosh(x)", 
             "Math.sinh(x)", 
             "Math.tanh(x)"
@@ -41,6 +40,7 @@ public class DiffQuestions {
         };
         x = 0;
         y = 0;
+        h = 0.0000000001;
         question = "";
         rand = new Random();
         solver = new Interpreter();
@@ -48,14 +48,14 @@ public class DiffQuestions {
   
     private void generateQuestion1() {
         x = rand.nextInt(20) + 1;
-        double h = 0.00001;
-        int i = rand.nextInt(5) + 0;  
+        int i = rand.nextInt(6) + 0;  
         function = "";
         function = function.concat(functions[i]);
-        i = rand.nextInt(5) + 0;        
+        i = rand.nextInt(6) + 0;        
         function = function.concat("+" + functions[i]);
                
-        expression = "(" + function.replaceAll("x", String.valueOf(x+h)) + "-" + function.replaceAll("x", String.valueOf(x)) + ")/" + h;
+        expression = "((" + function.replaceAll("x", String.valueOf((double)x+h)) + ")-(" + function.replaceAll("x", String.valueOf(x)) + "))/" + h;
+        System.out.println(expression);
 
         try {
             solver.eval("result = " + expression);
@@ -69,14 +69,13 @@ public class DiffQuestions {
     
     private void generateQuestion2() {
         x = rand.nextInt(20) + 1;
-        double h = 0.00001;
-        int i = rand.nextInt(11) + 0;  
+        int i = rand.nextInt(9) + 0;  
         function = "";
         function = function.concat(functions[i]);
-        i = rand.nextInt(11) + 0;        
+        i = rand.nextInt(9) + 0;        
         function = function.concat("*" + functions[i]);
                
-        expression = "(" + function.replaceAll("x", String.valueOf(x+h)) + "-" + function.replaceAll("x", String.valueOf(x)) + ")/" + h;
+        expression = "((" + function.replaceAll("x", String.valueOf((double)x+h)) + ")-(" + function.replaceAll("x", String.valueOf(x)) + "))/" + h;
 
         try {
             solver.eval("result = " + expression);
@@ -91,7 +90,6 @@ public class DiffQuestions {
     private void generateQuestion3() {
         x = rand.nextInt(20) + 2;
         y = rand.nextInt(100) + 2;
-        double h = 0.00001;
         int i = rand.nextInt(4) + 0;  
         function = "";
         function = function.concat("(" + xExps[i] + ")").replaceAll("y", String.valueOf(y));
@@ -99,7 +97,7 @@ public class DiffQuestions {
         y = rand.nextInt(100) + 2;
         function = function.concat("/(x+y)").replaceAll("y", String.valueOf(y));
                
-        expression = "(" + function.replaceAll("x", String.valueOf(x+h)) + "-" + function.replaceAll("x", String.valueOf(x)) + ")/" + h;
+        expression = "((" + function.replaceAll("x", String.valueOf((double)x+h)) + ")-(" + function.replaceAll("x", String.valueOf(x)) + "))/" + h;
 
         try {
             solver.eval("result = " + expression);
@@ -113,15 +111,14 @@ public class DiffQuestions {
 
     private void generateQuestion4() {
         x = rand.nextInt(20) + 1;
-        double h = 0.00001;
         int i = rand.nextInt(5) + 0;  
         function = "";
         function = function.concat(functions[i]);
-        i = rand.nextInt(3) + 0;
+        i = rand.nextInt(4) + 0;
         y = rand.nextInt(100) + 2;
         function = function.replaceFirst("x", xExps[i]).replaceAll("y", String.valueOf(y));
                
-        expression = "(" + function.replaceAll("x", String.valueOf(x+h)) + "-" + function.replaceAll("x", String.valueOf(x)) + ")/" + h;
+        expression = "((" + function.replaceAll("x", String.valueOf((double)x+h)) + ")-(" + function.replaceAll("x", String.valueOf(x)) + "))/" + h;
 
         try {
             solver.eval("result = " + expression);
@@ -135,7 +132,6 @@ public class DiffQuestions {
 
     private void generateQuestion5() {
         double g = Math.round((double)(rand.nextInt(200) + 0))/100.0;
-        double h = 0.000000001;
         y = rand.nextInt(3) + 2;
         function = "";
         function = function.concat("Math.pow(" + xExps[3] + ",");
@@ -144,7 +140,7 @@ public class DiffQuestions {
         function = function.concat(xExps[3] + ")");
         function = function.replaceAll("y", String.valueOf(y));
                
-        expression = "(" + function.replaceAll("x", String.valueOf(g+h)) + "-" + function.replaceAll("x", String.valueOf(g)) + ")/" + h;
+        expression = "((" + function.replaceAll("x", String.valueOf((double)g+h)) + ")-(" + function.replaceAll("x", String.valueOf(g)) + "))/" + h;
 
         try {
             solver.eval("result = " + expression);

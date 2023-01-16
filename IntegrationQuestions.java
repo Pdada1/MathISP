@@ -19,8 +19,6 @@ public class IntegrationQuestions {
         expression = "";
         function = "";
         functions = new String[]{
-            "Math.log(x)", 
-            "Math.log10(x)", 
             "Math.pow(x,2)", 
             "Math.pow(x,3)", 
             "Math.sqrt(x)",
@@ -28,7 +26,7 @@ public class IntegrationQuestions {
             "Math.pow(Math.E, x) - Math.pow(Math.E, -x)", 
             "Math.sin(x)", 
             "(Math.pow(x,2)*Math.sin(x))/(1+Math.pow(x,6))",
-            "x/(Math.sqrt(x+1))", 
+            "x/(Math.sqrt(x+1))", //DOESNT WORK
             "Math.pow(Math.cos(x),2)", 
             "Math.pow(Math.sin(x),2)*Math.cos(x)", 
             "x/(Math.sqrt(Math.pow(x,2)+1))"
@@ -43,75 +41,56 @@ public class IntegrationQuestions {
     private void generateQuestion1() {
         x = rand.nextInt(11) + 0;
         y = rand.nextInt(10) + 11;
-        int i = rand.nextInt(5) + 0;
+        int i = rand.nextInt(3) + 0;
         function = functions[i];
         
-        expression = integrate(function, x, y);
-        
-        try {
-            solver.eval("result = " + expression);
-            correctAnswer = Double.parseDouble(String.valueOf(solver.get("result")));
-        } catch(Exception e) {}
-        
-        function = function.replaceAll("log10", "temp").replaceAll("log", "ln").replaceAll("temp", "log10").replaceAll("Math.", "");
-        question = "Find the definite integral of y = " + function + " over the interval [" + x + ", " + y + "]."
-                + "\n\nThe generated answer is approximate, so there is a 5% tolerance.";
+        correctAnswer = integrate(function, x, y);
+                
+        function = function.replaceAll("Math.", "");
+        question = "Find the definite integral of y = " + function + " over the interval [" + x + ", " + y + "].";
     }
     
     private void generateQuestion2() {
         x = rand.nextInt(20) + 1;
-        int i = rand.nextInt(4) + 5;
+        int i = rand.nextInt(5) + 3;
         function = functions[i];
         
         correctAnswer = 0.0;
         
-        function = function.replaceAll("log10", "temp").replaceAll("log", "ln").replaceAll("temp", "log10").replaceAll("Math.E", "e").replaceAll("Math.", "");
-        question = "Find the definite integral of y = " + function + " over the interval [-" + x + ", " + x + "]."
-                + "\n\nThe generated answer is approximate, so there is a 5% tolerance.";
+        function = function.replaceAll("Math.E", "e").replaceAll("Math.", "");
+        question = "Find the definite integral of y = " + function + " over the interval [-" + x + ", " + x + "].";
     }
 
-    private void generateQuestion3() {
-        int a = rand.nextInt(5) + 1;
-        int b = rand.nextInt(5) + 6;
-        int c = rand.nextInt(5) + 11;
-        
+    private void generateQuestion3() { //DOESNT WORK
+        int a = rand.nextInt(3) + 1;
+        int b = rand.nextInt(3) + 4;
+        int c = rand.nextInt(3) + 7;
+                
         function = "Math.pow(x, 3) - " + (a+b+c) + "*Math.pow(x, 2) + " + ((a*b)+(a*c)+(b*c)) + "*x - " + (a*b*c);
                 
-        expression = "Math.abs(" + integrate(function, a, b) + ") + Math.abs(" + integrate(function, b, c) + ")";
-        
-        try {
-            solver.eval("result = " + expression);
-            correctAnswer = Double.parseDouble(String.valueOf(solver.get("result")));
-        } catch(Exception e) {}
-        
-                function = function.replaceAll("log10", "temp").replaceAll("log", "ln").replaceAll("temp", "log10").replaceAll("Math.", "").replaceAll("x", "t");
-        question = "Find the total distance traveled by a particle moving at a velocity defined by v(t) = " + function + " over the interval [-" + a + ", " + c + "]."
-                + "\n\nBe careful when reading the question, the negative signs (if present) may be hard to see.";
+        correctAnswer = Math.abs(integrate(function, a, b)) + Math.abs(integrate(function, b, c));
+                
+        function = function.replaceAll("Math.", "").replaceAll("x", "t");
+        question = "Find the total distance traveled by a particle moving at a velocity defined by v(t) = " + function + " over the interval [" + a + ", " + c + "].";
     }
 
-    private void generateQuestion4() {
+    private void generateQuestion4() { //DOESNT WORK
         int a = rand.nextInt(5) + 1;
         int b = rand.nextInt(5) + 6;
-        int i = rand.nextInt(3) + 9;
+        int i = rand.nextInt(3) + 8;
         function = functions[i];
         
-        expression = integrate(function, a, b);
-        
-        try {
-            solver.eval("result = " + expression);
-            correctAnswer = Double.parseDouble(String.valueOf(solver.get("result")));
-        } catch(Exception e) {}
+        correctAnswer = integrate(function, a, b);
         
         function = function.replaceAll("Math.", "");
-        question = "Find the definite integral of y = " + function + " over the interval [" + a + ", " + b + "]."
-                + "\n\nThe generated answer is approximate, so there is a 5% tolerance.";
+        question = "Find the definite integral of y = " + function + " over the interval [" + a + ", " + b + "].";
     }
 
     private void generateQuestion5() {
         String upperBound = "Math.pow(x, 2)";
         String lowerBound = "x";
         int x = rand.nextInt(10) + 1;
-        int i = rand.nextInt(5) + 0;
+        int i = rand.nextInt(3) + 0;
         function = functions[i];
         
         expression = "2*x*" + function.replaceAll("x", upperBound) + "-" + function;
@@ -123,14 +102,29 @@ public class IntegrationQuestions {
         } catch(Exception e) {}
         
         function = function.replaceAll("Math.", "");
-        question = "Find F'(" + x + ") of F(t) = " + function.replaceAll("x", "t") + " over the interval [" + lowerBound + ", " + upperBound.replaceAll("Math.", "") + "]."
-                + "\n\nThe generated answer is approximate, so there is a 5% tolerance.";
+        question = "Find F'(" + x + ") of F(t) = " + function.replaceAll("x", "t") + " over the interval [" + lowerBound + ", " + upperBound.replaceAll("Math.", "") + "].";
     }
     
-    private String integrate(String f, int a, int b) {
-        return "((" + b + "-" + (a) + ")/8.0)*(" + f.replaceAll("x", String.valueOf(a)) + "+(3.0*" + 
-                f.replaceAll("x", String.valueOf((2.0*a+b)/3.0)) + ")+(3.0*" + 
-                f.replaceAll("x", String.valueOf((a+2.0*b)/3.0)) + ")+" + f.replaceAll("x", String.valueOf(b)) + ")";
+//    private String integrate(String f, int a, int b) {
+//        return "((" + b + "-" + (a) + ")/8.0)*(" + f.replaceAll("x", String.valueOf(a)) + "+(3.0*" + 
+//                f.replaceAll("x", String.valueOf((2.0*a+b)/3.0)) + ")+(3.0*" + 
+//                f.replaceAll("x", String.valueOf((a+2.0*b)/3.0)) + ")+" + f.replaceAll("x", String.valueOf(b)) + ")";
+//    }
+    
+    private double integrate(String function, double a, double b) {
+        double ans = 0.0;
+        int n = 5000;
+        double fx = 0;
+        
+        for(int i = 0; i<n; i++) {
+            try {
+                solver.eval("result = " + function.replaceAll("x", String.valueOf((double)a + (double)((i-1)*(((double)b-(double)a)/(double)n)))));
+                fx = Double.parseDouble(String.valueOf(solver.get("result")));
+                ans += (double)(((double)b-(double)a)/(double)n) * fx;
+            } catch(Exception e) {}
+        }
+        
+        return ans;
     }
    
     public double getCorrectAns() {

@@ -40,29 +40,22 @@ public class ApplyIntQuestions {
         } catch(Exception e) {}
         
         function = function.replaceAll("x", "t").replaceAll("Math.pow", "");
-        question = "Find the downward displacement of Harry on a drop tower over the interval  [" + a + ", " + b + "] if his velocity is defined by v(t) = " + function + "."
-                + "\n\nThe generated answer is approximate, so there is a 5% tolerance.";
+        question = "Find the downward displacement of Harry on a drop tower over the interval  [" + a + ", " + b + "] if his velocity is defined by v(t) = " + function + ".";
     }
     
     private void generateQuestion2() {
         String function2 = "";
         int a = rand.nextInt(10) + 1;
         int b = rand.nextInt(10) + 1;
-        function = String.valueOf(a) + "*Math.pow(x,2)";
-        function2 = String.valueOf(b) + "*x";
+        function = a + "*Math.pow(x,2)";
+        function2 = b + "*x";
         
-        expression = integrate(function2, 0, b/a) + "-" + integrate(function, 0, b/a);
-        
-        try {
-            solver.eval("result = " + expression);
-            correctAnswer = Double.parseDouble(String.valueOf(solver.get("result")));
-        } catch(Exception e) {}
+        correctAnswer = integrate(function2, 0, (double)b/(double)a)-integrate(function, 0, (double)b/(double)a);
         
         function = function.replaceAll("Math.", "");
         function2 = function2.replaceAll("Math.", "");
         
-        question = "Find the area of the region enclosed by f(x) = " + function + " and g(x) = " + function2 + "."
-                + "\n\nThe generated answer is approximate, so there is a 5% tolerance.";
+        question = "Find the area of the region enclosed by f(x) = " + function + " and g(x) = " + function2 + ".";
     }
 
     private void generateQuestion3() {
@@ -83,16 +76,11 @@ public class ApplyIntQuestions {
         function = "g*Math.pow(x,2)+c";
         function = function.replaceAll("g", String.valueOf(g)).replaceAll("c", String.valueOf(c));
         
-        expression = "Math.PI*" + integrate("Math.pow(" + function + ", 2) - Math.pow(" + c + ", 2)", x, y);
-        
-        try {
-            solver.eval("result = " + expression);
-            correctAnswer = Double.parseDouble(String.valueOf(solver.get("result")));
-        } catch(Exception e) {}
+        correctAnswer = Math.PI*integrate("Math.pow(" + function + ", 2) - Math.pow(" + c + ", 2)", x, y);
         
         function = function.replaceAll("Math.", "");
         question = "Find the volume of the region bounded by the function y = " + function + " and the line y = " + c + " over the interval [" + x + ", " + y + "] when rotated about the x-axis."
-                + "\n\nThe generated answer is approximate, so there is a 5% tolerance.\nPlease do not enter in terms of pi.";
+                + "\n\nPlease do not enter in terms of pi.";
     }
 
     private void generateQuestion5() {
@@ -101,22 +89,27 @@ public class ApplyIntQuestions {
         function = "g*x*Math.pow(x-c, 2)";
         function = function.replaceAll("g", String.valueOf(g)).replaceAll("c", String.valueOf(c));
         
-        expression = "2*Math.PI*" + integrate("x*" + function, 0, c);
-        
-        try {
-            solver.eval("result = " + expression);
-            correctAnswer = 0.9*Double.parseDouble(String.valueOf(solver.get("result")));
-        } catch(Exception e) {}
+        correctAnswer = 2*Math.PI*integrate("x*" + function, 0, c);
         
         function = function.replaceAll("Math.", "");
         question = "Find the volume of the region bounded by the function y = " + function + " and the x-axis over the interval [" + 0 + ", " + c + "] when rotated about the y-axis."
-                + "\n\nThe generated answer is approximate, so there is a 5% tolerance.\nPlease do not enter in terms of pi.";
+                + "\n\nPlease do not enter in terms of pi.";
     }
     
-    private String integrate(String f, int a, int b) {
-        return "((" + b + "-" + a + ")/8.0)*(" + f.replaceAll("x", String.valueOf(a)) + "+(3.0*" + 
-                f.replaceAll("x", String.valueOf((2.0*a+b)/3.0)) + ")+(3.0*" + 
-                f.replaceAll("x", String.valueOf((a+2.0*b)/3.0)) + ")+" + f.replaceAll("x", String.valueOf(b)) + ")";
+    private double integrate(String function, double a, double b) {
+        double ans = 0.0;
+        int n = 5000;
+        double fx = 0;
+        
+        for(int i = 0; i<n; i++) {
+            try {
+                solver.eval("result = " + function.replaceAll("x", String.valueOf((double)a + (double)((i-1)*(((double)b-(double)a)/(double)n)))));
+                fx = Double.parseDouble(String.valueOf(solver.get("result")));
+                ans += (double)(((double)b-(double)a)/(double)n) * fx;
+            } catch(Exception e) {}
+        }
+        
+        return ans;
     }
    
     public double getCorrectAns() {

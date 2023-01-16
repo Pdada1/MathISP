@@ -35,7 +35,7 @@ public class ApplyDiffQuestions {
   
     private void generateQuestion1() {
         x = rand.nextInt(10) + 1;
-        y = rand.nextInt(50) + 10;
+        y = rand.nextInt(20) + 10;
         
         correctAnswer = ((double)x)/(((double)(y*y))*Math.PI);
         
@@ -52,6 +52,8 @@ public class ApplyDiffQuestions {
             case 3 -> correctAnswer = 1.0/2.0;
             case 4 -> correctAnswer = 1.0;
         }
+        
+        function = function.replaceAll("Math.", "");
         
         question = "Evaluate the limit of y = " + function + " as x approaches zero.\n\nPlease enter the answer correct to two decimal places.";
     }

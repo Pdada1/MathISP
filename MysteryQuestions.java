@@ -89,8 +89,8 @@ public class MysteryQuestions {
     private void generateQuestion3() {
         double popM = 100 * rand.nextInt(3) + 300;
         double popI = rand.nextInt(10);
-        double pop1 = popI * 3;
-        double yearC = rand.nextInt(3) + 4;
+        double pop1 = rand.nextInt(4) + popI + 1;
+        double yearC = rand.nextInt(4) + pop1 + 1;
         double A = (popM - popI) / popI;
         double k = -Math.log(((popM / pop1) - 1) / A) / 1;
         correctAnswer = popM / (1 + A * Math.exp(-k * yearC));
@@ -98,9 +98,9 @@ public class MysteryQuestions {
         int i = rand.nextInt(pops.length) + 0;
         String type = pops[i];
 
-        question = "Harry loves " + type + ", but Harry hates controlling them. Assuming a maximum of "
-                + popM + " " + type + "can be supported by the environment, and he starts off with " + popI + ", if in the first year his population of " + type + " rises to "
-                + pop1 + " how many " + type + " will he have in year " + yearC;
+        question = "Harry loves " + type + ", but Harry hates controlling them. Assume a maximum of "
+                + popM + " " + type + " can be supported by the environment, and he starts off with " + popI + ". If in the first year, the population of " + type + " rises to "
+                + pop1 + ", how many " + type + " will he have in year " + yearC + "?";
     }
 
     private void generateQuestion4() {
