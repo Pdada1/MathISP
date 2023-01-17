@@ -34,7 +34,10 @@ public class IntegrationQuestions {
             (x) -> x/(Math.sqrt(x+1)),
             (x) -> Math.pow(Math.cos(x),2),
             (x) -> Math.pow(Math.sin(x),2)*Math.cos(x),
-            (x) -> x/(Math.sqrt(Math.pow(x,2)+1))
+            (x) -> x/(Math.sqrt(Math.pow(x,2)+1)),
+            (x) -> Math.pow(x,3)*Math.pow(Math.E, Math.pow(x,4)),
+            (x) -> x*Math.sqrt(5+2*Math.pow(x,2)),
+            (x) -> x*Math.cos(5*Math.pow(x,2))
         };
         displayFunctions = new String[] {
                 "x^2",

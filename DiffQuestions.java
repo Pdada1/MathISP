@@ -133,8 +133,8 @@ public class DiffQuestions {
 
     private void generateQuestion5() {
         double g = 0.25*(double)(rand.nextInt(7) + 1);
-        y = rand.nextInt(3) + 2;
-        int z = rand.nextInt(3) + 2;
+        y = rand.nextInt(3) + 1;
+        int z = rand.nextInt(3) + 1;
         
         displayFunction = "(" + y + "*x)^(" + z + "*x)";
         
