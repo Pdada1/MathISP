@@ -1,3 +1,4 @@
+
 /**
  * Names: Ishan Garg, Krish Patel, Pranav Mahabal
  * Course: MCV4U0-1
@@ -5,12 +6,11 @@
  * Teacher: Ms. Iulia Gugoiu
  */
 
-
 import bsh.Interpreter;
 import java.util.Random;
 
 public class MysteryQuestions {
-    
+
     private double correctAnswer;
     private String expression;
     private String function;
@@ -28,27 +28,27 @@ public class MysteryQuestions {
         correctAnswer = 0.0;
         expression = "";
         function = "";
-        functions = new String[]{
-            "z*Math.pow(x,2) + g*x*y", 
-            "Math.pow(x,2) + z*Math.pow(y,2) - g", 
-            "z*y+Math.sqrt(Math.pow(x,2)+Math.pow(y,2))",
-            "Math.pow(x,2)-z*x*y+Math.pow(y,2)-g*y", 
-            "Math.sin(x*y)-Math.pow(x,2)*y", 
+        functions = new String[] {
+                "z*Math.pow(x,2) + g*x*y",
+                "Math.pow(x,2) + z*Math.pow(y,2) - g",
+                "z*y+Math.sqrt(Math.pow(x,2)+Math.pow(y,2))",
+                "Math.pow(x,2)-z*x*y+Math.pow(y,2)-g*y",
+                "Math.sin(x*y)-Math.pow(x,2)*y",
         };
-        displayFunctions = new String[]{
-            "z*(x^2) + g*x*y", 
-            "x^2 + z*(y^2) - g", 
-            "z*y + sqrt(x^2 + y^2)",
-            "x^2 - z*x*y + y^2 -g*y", 
-            "sin(x*y) - (x^2)*y", 
+        displayFunctions = new String[] {
+                "z*(x^2) + g*x*y",
+                "x^2 + z*(y^2) - g",
+                "z*y + sqrt(x^2 + y^2)",
+                "x^2 - z*x*y + y^2 -g*y",
+                "sin(x*y) - (x^2)*y",
         };
-        pops = new String[]{
-            "fish", 
-            "bacteria", 
-            "kangaroos",
-            "squids", 
-            "beavers", 
-            "koalas", 
+        pops = new String[] {
+                "fish",
+                "bacteria",
+                "kangaroos",
+                "squids",
+                "beavers",
+                "koalas",
         };
         x = 0;
         y = 0;
@@ -56,7 +56,7 @@ public class MysteryQuestions {
         rand = new Random();
         solver = new Interpreter();
     }
-  
+
     private void generateQuestion1() {
         x = rand.nextInt(7) + 0;
         y = rand.nextInt(7) + 0;
@@ -66,56 +66,74 @@ public class MysteryQuestions {
         int z1 = rand.nextInt(7) + 0;
 
         correctAnswer = x * x1 + y * y1 + z * z1;
-        
-        question = "Find the dot product of the following two vectors: (" + x + "," + y + "," + z + ") and (" + x1 + "," + y1 + "," + z1 + ").";
+
+        question = "Find the dot product of the following two vectors: (" + x + "," + y + "," + z + ") and (" + x1 + ","
+                + y1 + "," + z1 + ").";
     }
-    
+
     private void generateQuestion2() {
         double x = rand.nextInt(3) + 0;
         double y = rand.nextInt(3) + 0;
         double approxX = rand.nextInt(2) + x + 1;
         int z = rand.nextInt(5) + 1;
         int g = rand.nextInt(5) + 1;
-        
-        double h = Math.round(((approxX-x)/(rand.nextInt(100) + 1))*100.0)/100.0;
-        while((approxX-x)%h != 0 || (approxX-x > 1.0 && h < 1.0) || (approxX-x > 1.0 && h > 1.0)) {
-            h = Math.round(((approxX-x)/(rand.nextInt(100) + 1))*100.0)/100.0;
+
+        double h = Math.round(((approxX - x) / (rand.nextInt(100) + 1)) * 100.0) / 100.0;
+        while ((approxX - x) % h != 0 || (approxX - x > 1.0 && h < 1.0) || (approxX - x > 1.0 && h > 1.0)) {
+            h = Math.round(((approxX - x) / (rand.nextInt(100) + 1)) * 100.0) / 100.0;
         }
-        
+
         int j = rand.nextInt(5) + 0;
         function = functions[j].replaceAll("z", String.valueOf(z)).replaceAll("g", String.valueOf(g));
-        displayFunction = displayFunctions[j].replaceAll("z", String.valueOf(z)).replaceAll("g", String.valueOf(g));  
-        
+        displayFunction = displayFunctions[j].replaceAll("z", String.valueOf(z)).replaceAll("g", String.valueOf(g));
+
         correctAnswer = 0;
         double tempY = y;
         double dx = 0;
-        for(double i = 0; i<(approxX-x); i+=h) {
+        for (double i = 0; i < (approxX - x); i += h) {
             try {
-                solver.eval("result = " + function.replaceAll("x", String.valueOf(x+i)).replaceAll("y", String.valueOf(tempY)));
+                solver.eval("result = "
+                        + function.replaceAll("x", String.valueOf(x + i)).replaceAll("y", String.valueOf(tempY)));
                 dx = Double.parseDouble(String.valueOf(solver.get("result")));
-            } catch(Exception e) {}
-            correctAnswer = tempY + h*(dx);
+            } catch (Exception e) {
+            }
+            correctAnswer = tempY + h * (dx);
             tempY = correctAnswer;
         }
 
-        question = "Suppose y = y(x) is the solution to the differential equation dy/dx = " + displayFunction + " with y(" + x + ") = " + y + ". "
+        question = "Suppose y = y(x) is the solution to the differential equation dy/dx = " + displayFunction
+                + " with y(" + x + ") = " + y + ". "
                 + "Use Euler's method to approximate y(" + approxX + ") using h = " + h + " as the increment.";
     }
 
     private void generateQuestion3() {
+        boolean based = false;
         double popM = 100 * rand.nextInt(3) + 300;
-        double popI = rand.nextInt(10);
+        double popI = rand.nextInt(10) + 1;
+        while (!based) {
+            if (popM == 300 & popI == 7 || popI == 8 || popI == 9) {
+                popI = rand.nextInt(10) + 1;
+            } else if (popM == 400 & popI == 3 || popI == 6 || popI == 7 || popI == 9) {
+                popI = rand.nextInt(10) + 1;
+            } else if (popM == 500 & popI == 3 || popI == 6 || popI == 7 || popI == 9 || popI == 8) {
+                popI = rand.nextInt(10) + 1;
+            } else {
+                based = true;
+            }
+        }
+
         double pop1 = rand.nextInt(4) + popI + 1;
         double yearC = rand.nextInt(4) + pop1 + 1;
         double A = (popM - popI) / popI;
         double k = -Math.log(((popM / pop1) - 1) / A) / 1;
         correctAnswer = popM / (1 + A * Math.exp(-k * yearC));
-        
+
         int i = rand.nextInt(pops.length) + 0;
         String type = pops[i];
 
         question = "Harry loves " + type + ", but Harry hates controlling them. Assume a maximum of "
-                + popM + " " + type + " can be supported by the environment, and he starts off with " + popI + ". If in the first year, the population of " + type + " rises to "
+                + popM + " " + type + " can be supported by the environment, and he starts off with " + popI
+                + ". If in the first year, the population of " + type + " rises to "
                 + pop1 + ", how many " + type + " will he have in year " + yearC + "?";
     }
 
@@ -140,10 +158,11 @@ public class MysteryQuestions {
         double px0 = rand.nextInt(15) - 7;
         double py0 = rand.nextInt(15) - 7;
         double pz0 = rand.nextInt(15) - 7;
-        
-        double dist = Math.abs(cx * px0 + cy * py0 + cz * pz0 + d)/ Math.sqrt(Math.pow(cx, 2) + Math.pow(cy, 2) + Math.pow(cz, 2));
+
+        double dist = Math.abs(cx * px0 + cy * py0 + cz * pz0 + d)
+                / Math.sqrt(Math.pow(cx, 2) + Math.pow(cy, 2) + Math.pow(cz, 2));
         correctAnswer = dist;
-        
+
         question = "Given the plane in vector form: (" + x0 + ", " + y0 + ", " + z0 + ") + u(" + ux + ", " + uy + ", "
                 + uz + ")" + " + v(" + vx + ", " + vy + ", " + vz + ")"
                 + " and the point (" + px0 + ", " + py0 + ", " + pz0
@@ -168,32 +187,33 @@ public class MysteryQuestions {
         double cz = ux * vy - uy * vx;
 
         double coeff = rand.nextInt(5) - 2;
-
+        System.out.println(coeff);
         double pu0 = pv0 - cx + coeff * ux;
         double pu1 = pv1 - cy + coeff * uy;
         double pu2 = pv2 - cz + coeff * uz;
 
-        correctAnswer = Math.abs((pv0 - pu0) * cx + (pv1 - pu1) * cy + (pv2 - pu2) * cz)/ Math.abs(Math.sqrt(cx * cx + cy * cy + cz * cz));
+        correctAnswer = Math.abs((pv0 - pu0) * cx + (pv1 - pu1) * cy + (pv2 - pu2) * cz)
+                / Math.abs(Math.sqrt(cx * cx + cy * cy + cz * cz));
 
-        question = "Given the skew lines in vector form: \n(" + pv0 + ", " + pv1 + ", " + pv2 + ") + v(" + vx + ", " + vy
+        question = "Given the skew lines in vector form: \n(" + pv0 + ", " + pv1 + ", " + pv2 + ") + v(" + vx + ", "
+                + vy
                 + ", " + vz + ")" + " and \n(" + pu0 + ", " + pu1 + ", " + pu2 + ") + u(" + ux + ", " + uy + ", "
                 + uz + "), \n\nFind the minimum distance between them.";
     }
-    
-   
+
     public double getCorrectAns() {
         return correctAnswer;
     }
-    
+
     public String getQuestion(int num) {
-        switch(num) {
+        switch (num) {
             case 100 -> generateQuestion1();
             case 200 -> generateQuestion2();
             case 300 -> generateQuestion3();
             case 400 -> generateQuestion4();
             case 500 -> generateQuestion5();
         }
-        
+
         return question;
     }
 }

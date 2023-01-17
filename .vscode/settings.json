@@ -1,0 +1,6 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\krish\\Downloads\\bsh-2.0b4.jar"
+    ]
+}
