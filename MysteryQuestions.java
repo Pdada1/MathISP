@@ -12,7 +12,6 @@ import java.util.Random;
 public class MysteryQuestions {
 
     private double correctAnswer;
-    private String expression;
     private String function;
     private String displayFunction;
     private int x;
@@ -26,7 +25,6 @@ public class MysteryQuestions {
 
     public MysteryQuestions() {
         correctAnswer = 0.0;
-        expression = "";
         function = "";
         functions = new String[] {
                 "z*Math.pow(x,2) + g*x*y",

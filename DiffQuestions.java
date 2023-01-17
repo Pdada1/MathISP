@@ -8,12 +8,10 @@
 
 import bsh.Interpreter;
 import java.util.Random;
-import javax.script.*;
 
 public class DiffQuestions {
     
     private double correctAnswer;
-    private String expression;
     private String function;
     private String displayFunction;
     private int x;
@@ -27,7 +25,6 @@ public class DiffQuestions {
 
     public DiffQuestions() {
         correctAnswer = 0.0;
-        expression = "";
         function = "";
         functions = new String[]{
             "Math.sin(x)", 

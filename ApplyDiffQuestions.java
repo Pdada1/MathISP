@@ -6,35 +6,20 @@
  * Teacher: Ms. Iulia Gugoiu
  */
 
-import bsh.Interpreter;
 import java.util.Random;
 
 public class ApplyDiffQuestions {
 
     private double correctAnswer;
-    private String expression;
-    private String function;
     private String displayFunction;
     private int x;
     private int y;
     private String question;
     private Random rand;
-    private Interpreter solver;
-    private String[] functions;
     private String[] displayFunctions;
-    private String[] xExps;
 
     public ApplyDiffQuestions() {
         correctAnswer = 0.0;
-        expression = "";
-        function = "";
-        functions = new String[] {
-                "Math.pow(Math.sin(x),2)/Math.pow(x,2)",
-                "(1-Math.cos(x))/Math.pow(x,2)",
-                "(Math.sin(x)-x)/Math.pow(x,3)",
-                "(Math.pow(Math.E,x)-1-x)/Math.pow(x,2)",
-                "(Math.tan(x)/x"
-        };
         displayFunctions = new String[] {
                 "sin^2(x)/x^2",
                 "(1-cos(x))/x^2",
@@ -46,7 +31,6 @@ public class ApplyDiffQuestions {
         y = 0;
         question = "";
         rand = new Random();
-        solver = new Interpreter();
     }
 
     private void generateQuestion1() {
@@ -62,7 +46,6 @@ public class ApplyDiffQuestions {
 
     private void generateQuestion2() {
         int i = rand.nextInt(5) + 0;
-        function = functions[i];
         displayFunction = displayFunctions[i];
         switch (i) {
             case 0 -> correctAnswer = 1.0;

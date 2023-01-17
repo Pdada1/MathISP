@@ -1,6 +1,7 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "c:\\Users\\krish\\Downloads\\bsh-2.0b4.jar"
+        "c:\\Users\\krish\\Downloads\\bsh-2.0b4.jar",
+        "c:\\Users\\ishu\\OneDrive\\Documents\\NetBeansProjects\\CalcJeopardy\\dist\\lib\\bsh-2.0b4.jar"
     ]
 }

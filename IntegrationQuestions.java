@@ -121,7 +121,6 @@ public class IntegrationQuestions {
 
     private void generateQuestion5() {
         String upperBound = "Math.pow(x, 2)";
-        String lowerBound = "x";
         int x = rand.nextInt(10) + 1;
         int i = rand.nextInt(3) + 0;
         function = functions[i];
