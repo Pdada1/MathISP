@@ -6,32 +6,28 @@
  * Teacher: Ms. Iulia Gugoiu
  */
 
-import bsh.Interpreter;
 import java.util.Random;
 
 public class MysteryQuestions {
 
     private double correctAnswer;
-    private String function;
     private String displayFunction;
-    private int x;
-    private int y;
+    private int g;
+    private int z;
     private String question;
     private Random rand;
-    private Interpreter solver;
-    private String[] functions;
     private String[] displayFunctions;
     private String[] pops;
+    private Function[] funcs;
 
     public MysteryQuestions() {
         correctAnswer = 0.0;
-        function = "";
-        functions = new String[] {
-                "z*Math.pow(x,2) + g*x*y",
-                "Math.pow(x,2) + z*Math.pow(y,2) - g",
-                "z*y+Math.sqrt(Math.pow(x,2)+Math.pow(y,2))",
-                "Math.pow(x,2)-z*x*y+Math.pow(y,2)-g*y",
-                "Math.sin(x*y)-Math.pow(x,2)*y",
+        funcs = new Function[] {
+            (x, y) -> z*Math.pow(x,2) + g*x*y,
+            (x, y) -> Math.pow(x,2) + z*Math.pow(y,2) - g,
+            (x, y) -> z*y+Math.sqrt(Math.pow(x,2)+Math.pow(y,2)),
+            (x, y) -> Math.pow(x,2)-z*x*y+Math.pow(y,2)-g*y,
+            (x, y) -> Math.sin(x*y)-Math.pow(x,2)*y,
         };
         displayFunctions = new String[] {
                 "z*(x^2) + g*x*y",
@@ -48,16 +44,13 @@ public class MysteryQuestions {
                 "beavers",
                 "koalas",
         };
-        x = 0;
-        y = 0;
         question = "";
         rand = new Random();
-        solver = new Interpreter();
     }
 
     private void generateQuestion1() {
-        x = rand.nextInt(7) + 0;
-        y = rand.nextInt(7) + 0;
+        int x = rand.nextInt(7) + 0;
+        int y = rand.nextInt(7) + 0;
         int z = rand.nextInt(7) + 0;
         int x1 = rand.nextInt(7) + 0;
         int y1 = rand.nextInt(7) + 0;
@@ -73,8 +66,8 @@ public class MysteryQuestions {
         double x = rand.nextInt(3) + 0;
         double y = rand.nextInt(3) + 0;
         double approxX = rand.nextInt(2) + x + 1;
-        int z = rand.nextInt(5) + 1;
-        int g = rand.nextInt(5) + 1;
+        z = rand.nextInt(5) + 1;
+        g = rand.nextInt(5) + 1;
 
         double h = Math.round(((approxX - x) / (rand.nextInt(100) + 1)) * 100.0) / 100.0;
         while ((approxX - x) % h != 0 || (approxX - x > 1.0 && h < 1.0) || (approxX - x > 1.0 && h > 1.0)) {
@@ -82,19 +75,14 @@ public class MysteryQuestions {
         }
 
         int j = rand.nextInt(5) + 0;
-        function = functions[j].replaceAll("z", String.valueOf(z)).replaceAll("g", String.valueOf(g));
+
         displayFunction = displayFunctions[j].replaceAll("z", String.valueOf(z)).replaceAll("g", String.valueOf(g));
 
         correctAnswer = 0;
         double tempY = y;
         double dx = 0;
         for (double i = 0; i < (approxX - x); i += h) {
-            try {
-                solver.eval("result = "
-                        + function.replaceAll("x", String.valueOf(x + i)).replaceAll("y", String.valueOf(tempY)));
-                dx = Double.parseDouble(String.valueOf(solver.get("result")));
-            } catch (Exception e) {
-            }
+            dx = funcs[j].eval(x+i,tempY);
             correctAnswer = tempY + h * (dx);
             tempY = correctAnswer;
         }
@@ -197,6 +185,10 @@ public class MysteryQuestions {
                 + vy
                 + ", " + vz + ")" + " and \n(" + pu0 + ", " + pu1 + ", " + pu2 + ") + u(" + ux + ", " + uy + ", "
                 + uz + "), \n\nFind the minimum distance between them.";
+    }
+    
+    private interface Function {
+        public double eval(double x, double y);
     }
 
     public double getCorrectAns() {

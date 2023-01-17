@@ -6,30 +6,25 @@
  * Teacher: Ms. Iulia Gugoiu
  */
 
-import bsh.Interpreter;
 import java.util.Random;
 
 public class ApplyIntQuestions {
 
     private double correctAnswer;
     private String expression;
-    private String function;
     private String displayFunction;
     private int x;
     private int y;
     private String question;
     private Random rand;
-    private Interpreter solver;
 
     public ApplyIntQuestions() {
         correctAnswer = 0.0;
         expression = "";
-        function = "";
         x = 0;
         y = 0;
         question = "";
         rand = new Random();
-        solver = new Interpreter();
     }
 
     private void generateQuestion1() {
@@ -37,36 +32,26 @@ public class ApplyIntQuestions {
         y = rand.nextInt(7) + 1;
         int a = rand.nextInt(2) + 1;
         int b = rand.nextInt(5) + 3;
-        function = x + "*x + " + y;
 
-        expression = "((" + x + "/2.0)*Math.pow(" + b + ", 2) +" + y + "*" + b + ")"
-                + "-((" + x + "/2.0)*Math.pow(" + a + ", 2) + " + y + "*" + a + ")";
+        correctAnswer = ((x/2.0)*Math.pow(b, 2) + y*b)-((x/2.0)*Math.pow(a, 2) + y*a);
 
-        try {
-            solver.eval("result = " + expression);
-            correctAnswer = Double.parseDouble(String.valueOf(solver.get("result")));
-        } catch (Exception e) {
-        }
-
-        function = function.replaceAll("x", "t").replaceAll("Math.pow", "");
         question = "Find the downward displacement of Harry on a drop tower over the interval  [" + a + ", " + b
-                + "] if his velocity is defined by v(t) = " + function + ".";
+                + "] if his velocity is defined by v(t) = " + x +"*t + " + y + ".";
     }
 
     private void generateQuestion2() {
-        String function2 = "";
         int a = rand.nextInt(7) + 1;
         int x = rand.nextInt(4) + 1;
         int b = a * x;
-        function = a + "*Math.pow(x,2)";
+        
+        Function f1 = (z) -> a*Math.pow(z,2);
+        Function f2 = (z) -> b*z;
+        
         displayFunction = a + "*(x^2)";
-        function2 = b + "*x";
 
-        correctAnswer = integrate(function2, 0, (double) b / (double) a)
-                - integrate(function, 0, (double) b / (double) a);
+        correctAnswer = integrate(f2, 0, (double) b / (double) a) - integrate(f1, 0, (double) b / (double) a);
 
-        question = "Find the area of the region enclosed by f(x) = " + displayFunction + " and g(x) = " + function2
-                + ".";
+        question = "Find the area of the region enclosed by f(x) = " + displayFunction + " and g(x) = " + b + "*x.";
     }
 
     private void generateQuestion3() {
@@ -86,12 +71,11 @@ public class ApplyIntQuestions {
         int g = rand.nextInt(8) + 1;
         int c = rand.nextInt(8) + 1;
 
-        function = "g*Math.pow(x,2)+c";
-        displayFunction = "g*(x^2)+c";
-        function = function.replaceAll("g", String.valueOf(g)).replaceAll("c", String.valueOf(c));
-        displayFunction = displayFunction.replaceAll("g", String.valueOf(g)).replaceAll("c", String.valueOf(c));
+        Function f = (z) -> Math.pow(g*Math.pow(z, 2) + c, 2) - Math.pow(c, 2);
+        
+        displayFunction = ("g*(x^2)+c").replaceAll("g", String.valueOf(g)).replaceAll("c", String.valueOf(c));
 
-        correctAnswer = Math.PI * integrate("Math.pow(" + function + ", 2) - Math.pow(" + c + ", 2)", x, y);
+        correctAnswer = Math.PI * integrate(f, x, y);
 
         question = "Find the volume of the region bounded by the function y = " + displayFunction + " and the line y = "
                 + c + " over the interval [" + x + ", " + y + "] when rotated about the x-axis."
@@ -101,34 +85,48 @@ public class ApplyIntQuestions {
     private void generateQuestion5() {
         int g = rand.nextInt(5) + 1;
         int c = rand.nextInt(5) + 1;
-        function = "g*x*Math.pow(x-c, 2)";
-        displayFunction = "g*x*(x-c)^2";
-        function = function.replaceAll("g", String.valueOf(g)).replaceAll("c", String.valueOf(c));
-        displayFunction = displayFunction.replaceAll("g", String.valueOf(g)).replaceAll("c", String.valueOf(c));
+        
+        Function f = (z) -> z*(g*z*Math.pow(z-c, 2));
+        
+        displayFunction = ("g*x*(x-c)^2").replaceAll("g", String.valueOf(g)).replaceAll("c", String.valueOf(c));
 
-        correctAnswer = 2 * Math.PI * integrate("x*" + function, 0, c);
+        correctAnswer = 2 * Math.PI * integrate(f, 0, c);
 
         question = "Find the volume of the region bounded by the function y = " + displayFunction
                 + " and the x-axis over the interval [" + 0 + ", " + c + "] when rotated about the y-axis."
                 + "\n\nPlease do not enter in terms of pi.";
     }
 
-    private double integrate(String function, double a, double b) {
+//    private double integrate(String function, double a, double b) {
+//        double ans = 0.0;
+//        int n = 7500;
+//        double fx = 0;
+//
+//        for (int i = 0; i < n; i++) {
+//            try {
+//                solver.eval("result = " + function.replaceAll("x",
+//                        String.valueOf((double) a + (double) ((i - 1) * (((double) b - (double) a) / (double) n)))));
+//                fx = Double.parseDouble(String.valueOf(solver.get("result")));
+//                ans += (double) (((double) b - (double) a) / (double) n) * fx;
+//            } catch (Exception e) {
+//            }
+//        }
+//
+//        return ans;
+//    }
+    
+    private double integrate(Function f, double a, double b) {
         double ans = 0.0;
-        int n = 7500;
-        double fx = 0;
-
-        for (int i = 0; i < n; i++) {
-            try {
-                solver.eval("result = " + function.replaceAll("x",
-                        String.valueOf((double) a + (double) ((i - 1) * (((double) b - (double) a) / (double) n)))));
-                fx = Double.parseDouble(String.valueOf(solver.get("result")));
-                ans += (double) (((double) b - (double) a) / (double) n) * fx;
-            } catch (Exception e) {
-            }
+        double n = 20000000.0;
+        for(int i = 0; i<n; i++) {
+            double fx = f.eval(a + (double)(i-1)*(b-a)/n);
+            ans += (double) ((b - a) / n) * fx;
         }
-
         return ans;
+    }
+    
+    private interface Function {
+        public double eval(double x);
     }
 
     public double getCorrectAns() {
