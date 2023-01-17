@@ -124,7 +124,7 @@ public class DiffQuestions {
                 
         displayFunction = displayFunctions[i].replaceFirst("x", displayExps[j]).replaceAll("y", String.valueOf(y));
                
-        correctAnswer = 1.0/(diff(xFuncs[j], x)*diff(funcs[i], xFuncs[j].eval(x)));
+        correctAnswer = -1.0/(diff(xFuncs[j], x)*diff(funcs[i], xFuncs[j].eval(x)));
                 
         displayFunction = displayFunction.replaceAll("log10", "temp").replaceAll("log", "ln").replaceAll("temp", "log10").replaceAll("Math.", "");
                 
@@ -132,7 +132,7 @@ public class DiffQuestions {
     }
 
     private void generateQuestion5() {
-        double g = Math.round((double)(rand.nextInt(200) + 1))/100.0;
+        double g = 0.25*(double)(rand.nextInt(7) + 1);
         y = rand.nextInt(3) + 2;
         int z = rand.nextInt(3) + 2;
         

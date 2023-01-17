@@ -47,7 +47,10 @@ public class IntegrationQuestions {
                 "x/(sqrt(x+1))",
                 "cos^2(x)",
                 "sin^2(x)*cos(x)",
-                "x/(sqrt(x^2+1))"
+                "x/(sqrt(x^2+1))",
+                "(x^3)*e^(x^4)",
+                "x*sqrt(5+2*(x^2))",
+                "x*cos(5*(x^2))"
         };
         x = 0;
         y = 0;
@@ -96,7 +99,7 @@ public class IntegrationQuestions {
     private void generateQuestion4() {
         int a = rand.nextInt(5) + 1;
         int b = rand.nextInt(5) + 6;
-        int i = rand.nextInt(4) + 7;
+        int i = rand.nextInt(7) + 7;
         displayFunction = displayFunctions[i];
 
         correctAnswer = integrate(funcs[i],a,b);

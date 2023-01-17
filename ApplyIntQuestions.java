@@ -66,10 +66,10 @@ public class ApplyIntQuestions {
     }
 
     private void generateQuestion4() {
-        x = rand.nextInt(4) + 1;
-        y = rand.nextInt(5) + 4;
-        int g = rand.nextInt(8) + 1;
-        int c = rand.nextInt(8) + 1;
+        x = rand.nextInt(3) + 1;
+        y = rand.nextInt(3) + 4;
+        int g = rand.nextInt(6) + 1;
+        int c = rand.nextInt(6) + 1;
 
         Function f = (z) -> Math.pow(g*Math.pow(z, 2) + c, 2) - Math.pow(c, 2);
         
