@@ -1,3 +1,10 @@
+/**
+ * Names: Ishan Garg, Krish Patel, Pranav Mahabal
+ * Course: MCV4U0-1
+ * Date: January 17, 2023
+ * Teacher: Ms. Iulia Gugoiu
+ */
+
 
 import bsh.Interpreter;
 import java.util.Random;
@@ -7,12 +14,14 @@ public class ApplyDiffQuestions {
     private double correctAnswer;
     private String expression;
     private String function;
+    private String displayFunction;
     private int x;
     private int y;
     private String question;
     private Random rand;
     private Interpreter solver;
     private String[] functions;
+    private String[] displayFunctions;
     private String[] xExps;
 
     public ApplyDiffQuestions() {
@@ -23,8 +32,15 @@ public class ApplyDiffQuestions {
             "Math.pow(Math.sin(x),2)/Math.pow(x,2)", 
             "(1-Math.cos(x))/Math.pow(x,2)", 
             "(Math.sin(x)-x)/Math.pow(x,3)", 
-            "(Math.E-1-x)/Math.pow(x,2)", 
+            "(Math.pow(Math.E,x)-1-x)/Math.pow(x,2)", 
             "(Math.tan(x)/x"
+        };
+        displayFunctions = new String[]{
+            "sin^2(x)/x^2", 
+            "(1-cos(x))/x^2", 
+            "(sin(x)-x)/x^3", 
+            "((e^x)-1-x)/x^2", 
+            "tan(x)/x"
         };
         x = 0;
         y = 0;
@@ -35,7 +51,7 @@ public class ApplyDiffQuestions {
   
     private void generateQuestion1() {
         x = rand.nextInt(10) + 1;
-        y = rand.nextInt(20) + 10;
+        y = rand.nextInt(10) + 1;
         
         correctAnswer = ((double)x)/(((double)(y*y))*Math.PI);
         
@@ -45,6 +61,7 @@ public class ApplyDiffQuestions {
     private void generateQuestion2() {
         int i = rand.nextInt(5) + 0;
         function = functions [i];
+        displayFunction = displayFunctions[i];
         switch(i) {
             case 0 -> correctAnswer = 1.0;
             case 1 -> correctAnswer = 1.0/2.0;
@@ -53,9 +70,9 @@ public class ApplyDiffQuestions {
             case 4 -> correctAnswer = 1.0;
         }
         
-        function = function.replaceAll("Math.", "");
-        
-        question = "Evaluate the limit of y = " + function + " as x approaches zero.\n\nPlease enter the answer correct to two decimal places.";
+        displayFunction = displayFunction.replaceAll("Math.", "");
+                
+        question = "Evaluate the limit of y = " + displayFunction + " as x approaches zero.\n\nPlease enter the answer correct to two decimal places.";
     }
 
     private void generateQuestion3() {
@@ -88,6 +105,8 @@ public class ApplyDiffQuestions {
                 + "of the square's piece so that the total area enclosed by both shapes is a minimum?"
                 + "\n\nPlease do not enter in terms of pi.";
     }
+    
+    
    
     public double getCorrectAns() {
         return correctAnswer;

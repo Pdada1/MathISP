@@ -1,3 +1,10 @@
+/**
+ * Names: Ishan Garg, Krish Patel, Pranav Mahabal
+ * Course: MCV4U0-1
+ * Date: January 17, 2023
+ * Teacher: Ms. Iulia Gugoiu
+ */
+
 
 import java.awt.*;
 import java.io.*;
@@ -86,6 +93,7 @@ public class AskQuestion extends javax.swing.JDialog {
     private void initComponents() {
 
         jFrame1 = new javax.swing.JFrame();
+        jOptionPane1 = new javax.swing.JOptionPane();
         myst1 = new javax.swing.JButton();
         menuTitle = new javax.swing.JLabel();
         myst2 = new javax.swing.JButton();
@@ -147,11 +155,11 @@ public class AskQuestion extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Calculus Jeopardy");
-        setBackground(new java.awt.Color(241, 253, 253));
+        setBackground(new java.awt.Color(255, 213, 0));
         setForeground(new java.awt.Color(204, 204, 204));
 
         myst1.setBackground(new java.awt.Color(10, 14, 169));
-        myst1.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        myst1.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         myst1.setForeground(new java.awt.Color(255, 213, 0));
         myst1.setText("100");
         myst1.setBorder(null);
@@ -169,7 +177,7 @@ public class AskQuestion extends javax.swing.JDialog {
         menuTitle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         myst2.setBackground(new java.awt.Color(10, 14, 169));
-        myst2.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        myst2.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         myst2.setForeground(new java.awt.Color(255, 213, 0));
         myst2.setText("200");
         myst2.setBorder(null);
@@ -181,7 +189,7 @@ public class AskQuestion extends javax.swing.JDialog {
         });
 
         myst3.setBackground(new java.awt.Color(10, 14, 169));
-        myst3.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        myst3.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         myst3.setForeground(new java.awt.Color(255, 213, 0));
         myst3.setText("300");
         myst3.setBorder(null);
@@ -193,7 +201,7 @@ public class AskQuestion extends javax.swing.JDialog {
         });
 
         myst4.setBackground(new java.awt.Color(10, 14, 169));
-        myst4.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        myst4.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         myst4.setForeground(new java.awt.Color(255, 213, 0));
         myst4.setText("400");
         myst4.setBorder(null);
@@ -205,11 +213,12 @@ public class AskQuestion extends javax.swing.JDialog {
         });
 
         myst5.setBackground(new java.awt.Color(10, 14, 169));
-        myst5.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        myst5.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         myst5.setForeground(new java.awt.Color(255, 213, 0));
         myst5.setText("500");
         myst5.setBorder(null);
         myst5.setBorderPainted(false);
+        myst5.setName(""); // NOI18N
         myst5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 myst5ActionPerformed(evt);
@@ -217,7 +226,7 @@ public class AskQuestion extends javax.swing.JDialog {
         });
 
         diff2.setBackground(new java.awt.Color(10, 14, 169));
-        diff2.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        diff2.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         diff2.setForeground(new java.awt.Color(255, 213, 0));
         diff2.setText("200");
         diff2.setBorder(null);
@@ -229,7 +238,7 @@ public class AskQuestion extends javax.swing.JDialog {
         });
 
         diff3.setBackground(new java.awt.Color(10, 14, 169));
-        diff3.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        diff3.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         diff3.setForeground(new java.awt.Color(255, 213, 0));
         diff3.setText("300");
         diff3.setBorder(null);
@@ -241,7 +250,7 @@ public class AskQuestion extends javax.swing.JDialog {
         });
 
         diff4.setBackground(new java.awt.Color(10, 14, 169));
-        diff4.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        diff4.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         diff4.setForeground(new java.awt.Color(255, 213, 0));
         diff4.setText("400");
         diff4.setBorder(null);
@@ -253,7 +262,7 @@ public class AskQuestion extends javax.swing.JDialog {
         });
 
         diff5.setBackground(new java.awt.Color(10, 14, 169));
-        diff5.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        diff5.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         diff5.setForeground(new java.awt.Color(255, 213, 0));
         diff5.setText("500");
         diff5.setBorder(null);
@@ -265,7 +274,7 @@ public class AskQuestion extends javax.swing.JDialog {
         });
 
         diff1.setBackground(new java.awt.Color(10, 14, 169));
-        diff1.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        diff1.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         diff1.setForeground(new java.awt.Color(255, 213, 0));
         diff1.setText("100");
         diff1.setBorder(null);
@@ -277,7 +286,7 @@ public class AskQuestion extends javax.swing.JDialog {
         });
 
         applyDiff2.setBackground(new java.awt.Color(10, 14, 169));
-        applyDiff2.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        applyDiff2.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         applyDiff2.setForeground(new java.awt.Color(255, 213, 0));
         applyDiff2.setText("200");
         applyDiff2.setBorder(null);
@@ -289,7 +298,7 @@ public class AskQuestion extends javax.swing.JDialog {
         });
 
         applyDiff3.setBackground(new java.awt.Color(10, 14, 169));
-        applyDiff3.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        applyDiff3.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         applyDiff3.setForeground(new java.awt.Color(255, 213, 0));
         applyDiff3.setText("300");
         applyDiff3.setBorder(null);
@@ -301,7 +310,7 @@ public class AskQuestion extends javax.swing.JDialog {
         });
 
         applyDiff4.setBackground(new java.awt.Color(10, 14, 169));
-        applyDiff4.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        applyDiff4.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         applyDiff4.setForeground(new java.awt.Color(255, 213, 0));
         applyDiff4.setText("400");
         applyDiff4.setBorder(null);
@@ -313,7 +322,7 @@ public class AskQuestion extends javax.swing.JDialog {
         });
 
         applyDiff5.setBackground(new java.awt.Color(10, 14, 169));
-        applyDiff5.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        applyDiff5.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         applyDiff5.setForeground(new java.awt.Color(255, 213, 0));
         applyDiff5.setText("500");
         applyDiff5.setBorder(null);
@@ -325,7 +334,7 @@ public class AskQuestion extends javax.swing.JDialog {
         });
 
         applyDiff1.setBackground(new java.awt.Color(10, 14, 169));
-        applyDiff1.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        applyDiff1.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         applyDiff1.setForeground(new java.awt.Color(255, 213, 0));
         applyDiff1.setText("100");
         applyDiff1.setBorder(null);
@@ -337,7 +346,7 @@ public class AskQuestion extends javax.swing.JDialog {
         });
 
         applyInt2.setBackground(new java.awt.Color(10, 14, 169));
-        applyInt2.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        applyInt2.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         applyInt2.setForeground(new java.awt.Color(255, 213, 0));
         applyInt2.setText("200");
         applyInt2.setBorder(null);
@@ -349,7 +358,7 @@ public class AskQuestion extends javax.swing.JDialog {
         });
 
         applyInt3.setBackground(new java.awt.Color(10, 14, 169));
-        applyInt3.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        applyInt3.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         applyInt3.setForeground(new java.awt.Color(255, 213, 0));
         applyInt3.setText("300");
         applyInt3.setBorder(null);
@@ -361,7 +370,7 @@ public class AskQuestion extends javax.swing.JDialog {
         });
 
         applyInt4.setBackground(new java.awt.Color(10, 14, 169));
-        applyInt4.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        applyInt4.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         applyInt4.setForeground(new java.awt.Color(255, 213, 0));
         applyInt4.setText("400");
         applyInt4.setBorder(null);
@@ -373,7 +382,7 @@ public class AskQuestion extends javax.swing.JDialog {
         });
 
         applyInt5.setBackground(new java.awt.Color(10, 14, 169));
-        applyInt5.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        applyInt5.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         applyInt5.setForeground(new java.awt.Color(255, 213, 0));
         applyInt5.setText("500");
         applyInt5.setBorder(null);
@@ -385,7 +394,7 @@ public class AskQuestion extends javax.swing.JDialog {
         });
 
         applyInt1.setBackground(new java.awt.Color(10, 14, 169));
-        applyInt1.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        applyInt1.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         applyInt1.setForeground(new java.awt.Color(255, 213, 0));
         applyInt1.setText("100");
         applyInt1.setBorder(null);
@@ -397,7 +406,7 @@ public class AskQuestion extends javax.swing.JDialog {
         });
 
         int2.setBackground(new java.awt.Color(10, 14, 169));
-        int2.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        int2.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         int2.setForeground(new java.awt.Color(255, 213, 0));
         int2.setText("200");
         int2.setBorder(null);
@@ -409,7 +418,7 @@ public class AskQuestion extends javax.swing.JDialog {
         });
 
         int3.setBackground(new java.awt.Color(10, 14, 169));
-        int3.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        int3.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         int3.setForeground(new java.awt.Color(255, 213, 0));
         int3.setText("300");
         int3.setBorder(null);
@@ -421,7 +430,7 @@ public class AskQuestion extends javax.swing.JDialog {
         });
 
         int4.setBackground(new java.awt.Color(10, 14, 169));
-        int4.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        int4.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         int4.setForeground(new java.awt.Color(255, 213, 0));
         int4.setText("400");
         int4.setBorder(null);
@@ -433,7 +442,7 @@ public class AskQuestion extends javax.swing.JDialog {
         });
 
         int5.setBackground(new java.awt.Color(10, 14, 169));
-        int5.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        int5.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         int5.setForeground(new java.awt.Color(255, 213, 0));
         int5.setText("500");
         int5.setBorder(null);
@@ -445,7 +454,7 @@ public class AskQuestion extends javax.swing.JDialog {
         });
 
         int1.setBackground(new java.awt.Color(10, 14, 169));
-        int1.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        int1.setFont(new java.awt.Font("Swis721 Cn BT", 1, 36)); // NOI18N
         int1.setForeground(new java.awt.Color(255, 213, 0));
         int1.setText("100");
         int1.setBorder(null);
@@ -646,13 +655,13 @@ public class AskQuestion extends javax.swing.JDialog {
                         .addComponent(turnLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(answerField, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(check, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(answerField, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(check, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(resultLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -718,69 +727,67 @@ public class AskQuestion extends javax.swing.JDialog {
                     .addComponent(turnLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE))
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(applyInt1, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(int1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(applyInt2, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(int2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(applyInt3, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(int3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(applyInt4, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(int4, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(int5, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(applyInt5, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(applyDiff1, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                                .addComponent(int1, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE))
+                            .addComponent(diff1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(applyInt1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(applyInt2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(applyInt3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(applyInt4, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(applyInt5, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(applyDiff1, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                                        .addComponent(diff1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(diff2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(diff3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(diff4, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(diff5, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addComponent(applyDiff2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(applyDiff3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(applyDiff4, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(applyDiff5, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(myst1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(diff2, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(myst2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(diff3, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(myst3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(diff4, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(myst4, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(diff5, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(int2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(applyDiff2, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(myst5, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(int3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(applyDiff3, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(applyDiff4, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(applyDiff5, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(int4, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(int5, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE))))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(myst1, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(myst2, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(myst3, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(myst4, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(myst5, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(player1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -788,14 +795,16 @@ public class AskQuestion extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(answerField, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                            .addComponent(check, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(check, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(answerField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(resultLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27))
         );
+
+        getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -984,8 +993,8 @@ public class AskQuestion extends javax.swing.JDialog {
         if(applyIntPressed[1] == false && !activeQuestion){  
             questionType = "ApplyInt";
             ptsAdded = 200;
-            showQuestion();
             applyInt2.setBackground(new Color(255,213,0));
+            showQuestion();
             applyIntPressed[1] = true;
             questionType = "";
             activeQuestion = true;
@@ -996,8 +1005,8 @@ public class AskQuestion extends javax.swing.JDialog {
         if(applyIntPressed[2] == false && !activeQuestion){  
             questionType = "ApplyInt";
             ptsAdded = 300;
-            showQuestion();
             applyInt3.setBackground(new Color(255,213,0));
+            showQuestion();
             applyIntPressed[2] = true;
             questionType = "";
             activeQuestion = true;
@@ -1008,8 +1017,8 @@ public class AskQuestion extends javax.swing.JDialog {
         if(applyIntPressed[3] == false && !activeQuestion){  
             questionType = "ApplyInt";
             ptsAdded = 400;
-            showQuestion();
             applyInt4.setBackground(new Color(255,213,0));
+            showQuestion();
             applyIntPressed[3] = true;
             questionType = "";
             activeQuestion = true;
@@ -1020,8 +1029,8 @@ public class AskQuestion extends javax.swing.JDialog {
         if(applyIntPressed[4] == false && !activeQuestion){  
             questionType = "ApplyInt";
             ptsAdded = 500;
-            showQuestion();
             applyInt5.setBackground(new Color(255,213,0));
+            showQuestion();
             applyIntPressed[4] = true;
             questionType = "";
             activeQuestion = true;
@@ -1032,8 +1041,8 @@ public class AskQuestion extends javax.swing.JDialog {
         if(applyIntPressed[0] == false && !activeQuestion){  
             questionType = "ApplyInt";
             ptsAdded = 100;
-            showQuestion();
             applyInt1.setBackground(new Color(255,213,0));
+            showQuestion();
             applyIntPressed[0] = true;
             questionType = "";
             activeQuestion = true;
@@ -1044,8 +1053,8 @@ public class AskQuestion extends javax.swing.JDialog {
         if(intPressed[1] == false && !activeQuestion){  
             questionType = "Int";
             ptsAdded = 200;
-            showQuestion();
             int2.setBackground(new Color(255,213,0));
+            showQuestion();
             intPressed[1] = true;
             questionType = "";
             activeQuestion = true;
@@ -1056,8 +1065,8 @@ public class AskQuestion extends javax.swing.JDialog {
         if(intPressed[2] == false && !activeQuestion){  
             questionType = "Int";
             ptsAdded = 300;
-            showQuestion();
             int3.setBackground(new Color(255,213,0));
+            showQuestion();
             intPressed[2] = true;
             questionType = "";
             activeQuestion = true;
@@ -1068,8 +1077,8 @@ public class AskQuestion extends javax.swing.JDialog {
         if(intPressed[3] == false && !activeQuestion){  
             questionType = "Int";
             ptsAdded = 400;
-            showQuestion();
             int4.setBackground(new Color(255,213,0));
+            showQuestion();
             intPressed[3] = true;
             questionType = "";
             activeQuestion = true;
@@ -1080,8 +1089,8 @@ public class AskQuestion extends javax.swing.JDialog {
         if(intPressed[4] == false && !activeQuestion){  
             questionType = "Int";
             ptsAdded = 500;
-            showQuestion();
             int5.setBackground(new Color(255,213,0));
+            showQuestion();            
             intPressed[4] = true;
             questionType = "";
             activeQuestion = true;
@@ -1092,8 +1101,8 @@ public class AskQuestion extends javax.swing.JDialog {
         if(intPressed[0] == false && !activeQuestion){  
             questionType = "Int";
             ptsAdded = 100;
-            showQuestion();
             int1.setBackground(new Color(255,213,0));
+            showQuestion();
             intPressed[0] = true;
             questionType = "";
             activeQuestion = true;
@@ -1116,7 +1125,7 @@ public class AskQuestion extends javax.swing.JDialog {
             // Get the correct answer from the check button's client property
             double correctAnswer = (double) check.getClientProperty("correctAnswer");
             correctAnswer = Math.round(correctAnswer*100.0)/100.0;
-            System.out.println(questionType);
+            
             if (correctAnswer == 0.0 && answer == correctAnswer) {
                 resultLabel.setText("Correct! Answer: " + correctAnswer);
                 clip.open(correct);
@@ -1157,11 +1166,19 @@ public class AskQuestion extends javax.swing.JDialog {
             if(isWinner()) {
                 if(playerScores[0] > playerScores[1]) {
                     resultLabel.setText("Player 1 Wins!!!");
-                } else {
+                } else if (playerScores[1] > playerScores[0]){
                     resultLabel.setText("Player 2 Wins!!!");
+                } else {
+                    resultLabel.setText("Tie!!!");
                 }
+                clip.stop();
+                introFile = new File("resources\\intro.wav");           
+                intro = AudioSystem.getAudioInputStream(introFile);            
+                clip = AudioSystem.getClip();          
+                clip.open(intro);
+                clip.start();
             }
-        } catch (Exception e){System.out.println(e);}
+        } catch (Exception e){}
     }//GEN-LAST:event_checkActionPerformed
 
     private void restartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restartActionPerformed
@@ -1253,16 +1270,18 @@ public class AskQuestion extends javax.swing.JDialog {
 
     private void creditsLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditsLabelActionPerformed
         if(activeQuestion) {
-            questionLabel.setText(questionLabel.getText() + "\n\n -------------------------------------------------------------------\n  Names: Ishan Garg, Pranav Mahabal, and Krish Patel. \n  Course: MCV4U0-1\n  Date: January 9, 2023\n  Teacher: Ms. Iulia Gugoiu");
+            questionLabel.setText(questionLabel.getText() + "\n\n -------------------------------------------------------------------\n  Names: Ishan Garg, Pranav Mahabal, and Krish Patel. \n  Course: MCV4U0-1\n  Date: January 17, 2023\n  Teacher: Ms. Iulia Gugoiu");
         } else {
             questionLabel.setText("  Names: Ishan Garg, Pranav Mahabal, and Krish Patel. \n  Course: MCV4U0-1"
-                    + "\n  Date: January 9, 2023\n  Teacher: Ms. Iulia Gugoiu");
+                    + "\n  Date: January 17, 2023\n  Teacher: Ms. Iulia Gugoiu");
         }
     }//GEN-LAST:event_creditsLabelActionPerformed
     
     private void showQuestion() {
         String question = "";
         double correctAnswer = 0.0;
+        
+        resultLabel.setText("");
         
         this.repaint();
         turnLabel.repaint();
@@ -1355,6 +1374,7 @@ public class AskQuestion extends javax.swing.JDialog {
     private javax.swing.JButton int4;
     private javax.swing.JButton int5;
     private javax.swing.JFrame jFrame1;
+    private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;

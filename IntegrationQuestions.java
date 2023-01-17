@@ -1,3 +1,10 @@
+/**
+ * Names: Ishan Garg, Krish Patel, Pranav Mahabal
+ * Course: MCV4U0-1
+ * Date: January 17, 2023
+ * Teacher: Ms. Iulia Gugoiu
+ */
+
 
 import bsh.Interpreter;
 import java.util.Random;
@@ -7,12 +14,14 @@ public class IntegrationQuestions {
     private double correctAnswer;
     private String expression;
     private String function;
+    private String displayFunction;
     private int x;
     private int y;
     private String question;
     private Random rand;
     private Interpreter solver;
     private String[] functions;
+    private String[] displayFunctions;
 
     public IntegrationQuestions() {
         correctAnswer = 0.0;
@@ -31,6 +40,19 @@ public class IntegrationQuestions {
             "Math.pow(Math.sin(x),2)*Math.cos(x)", 
             "x/(Math.sqrt(Math.pow(x,2)+1))"
         };
+        displayFunctions = new String[]{
+            "x^2", 
+            "x^3", 
+            "sqrt(x)",
+            "x^9 - x^5 + x^3 - x", 
+            "e^x - e^(-x)", 
+            "sin(x)", 
+            "((x^2)*sin(x))/(1+x^6)",
+            "x/(sqrt(x+1))",
+            "cos^2(x)", 
+            "sin^2(x)*cos(x)", 
+            "x/(sqrt(x^2+1))"
+        };
         x = 0;
         y = 0;
         question = "";
@@ -43,47 +65,53 @@ public class IntegrationQuestions {
         y = rand.nextInt(10) + 11;
         int i = rand.nextInt(3) + 0;
         function = functions[i];
+        displayFunction = displayFunctions[i];
         
         correctAnswer = integrate(function, x, y);
                 
-        function = function.replaceAll("Math.", "");
-        question = "Find the definite integral of y = " + function + " over the interval [" + x + ", " + y + "].";
+        displayFunction = displayFunction.replaceAll("Math.", "");
+        question = "Find the definite integral of y = " + displayFunction + " over the interval [" + x + ", " + y + "].";
     }
     
     private void generateQuestion2() {
         x = rand.nextInt(20) + 1;
-        int i = rand.nextInt(5) + 3;
+        int i = rand.nextInt(4) + 3;
+        
         function = functions[i];
+        displayFunction = displayFunctions[i];
         
         correctAnswer = 0.0;
         
-        function = function.replaceAll("Math.E", "e").replaceAll("Math.", "");
-        question = "Find the definite integral of y = " + function + " over the interval [-" + x + ", " + x + "].";
+        displayFunction = displayFunction.replaceAll("Math.E", "e").replaceAll("Math.", "");
+        question = "Find the definite integral of y = " + displayFunction + " over the interval [-" + x + ", " + x + "].";
     }
 
-    private void generateQuestion3() { //DOESNT WORK
+    private void generateQuestion3() {
         int a = rand.nextInt(3) + 1;
         int b = rand.nextInt(3) + 4;
         int c = rand.nextInt(3) + 7;
                 
         function = "Math.pow(x, 3) - " + (a+b+c) + "*Math.pow(x, 2) + " + ((a*b)+(a*c)+(b*c)) + "*x - " + (a*b*c);
+        displayFunction = "x^3 - " + (a+b+c) + "*(x^2) + " + ((a*b)+(a*c)+(b*c)) + "*x - " + (a*b*c);
                 
         correctAnswer = Math.abs(integrate(function, a, b)) + Math.abs(integrate(function, b, c));
                 
-        function = function.replaceAll("Math.", "").replaceAll("x", "t");
-        question = "Find the total distance traveled by a particle moving at a velocity defined by v(t) = " + function + " over the interval [" + a + ", " + c + "].";
+        displayFunction = displayFunction.replaceAll("Math.", "").replaceAll("x", "t");
+        question = "Find the total distance traveled by a particle moving at a velocity defined by v(t) = " + displayFunction + " over the interval [" + a + ", " + c + "]."
+                + "\n\nNote: read the question carefully.";
     }
 
-    private void generateQuestion4() { //DOESNT WORK
+    private void generateQuestion4() {
         int a = rand.nextInt(5) + 1;
         int b = rand.nextInt(5) + 6;
         int i = rand.nextInt(3) + 8;
         function = functions[i];
+        displayFunction = displayFunctions[i];
         
         correctAnswer = integrate(function, a, b);
         
-        function = function.replaceAll("Math.", "");
-        question = "Find the definite integral of y = " + function + " over the interval [" + a + ", " + b + "].";
+        displayFunction = displayFunction.replaceAll("Math.", "");
+        question = "Find the definite integral of y = " + displayFunction + " over the interval [" + a + ", " + b + "].";
     }
 
     private void generateQuestion5() {
@@ -92,6 +120,7 @@ public class IntegrationQuestions {
         int x = rand.nextInt(10) + 1;
         int i = rand.nextInt(3) + 0;
         function = functions[i];
+        displayFunction = displayFunctions[i];
         
         expression = "2*x*" + function.replaceAll("x", upperBound) + "-" + function;
         expression = expression.replaceAll("x", String.valueOf(x));
@@ -101,8 +130,8 @@ public class IntegrationQuestions {
             correctAnswer = Double.parseDouble(String.valueOf(solver.get("result")));
         } catch(Exception e) {}
         
-        function = function.replaceAll("Math.", "");
-        question = "Find F'(" + x + ") of F(t) = " + function.replaceAll("x", "t") + " over the interval [" + lowerBound + ", " + upperBound.replaceAll("Math.", "") + "].";
+        displayFunction = displayFunction.replaceAll("Math.", "");
+        question = "Find F'(" + x + ") of F(t) = " + displayFunction.replaceAll("x", "t") + " over the interval [x, x^2].";
     }
     
 //    private String integrate(String f, int a, int b) {
@@ -113,7 +142,7 @@ public class IntegrationQuestions {
     
     private double integrate(String function, double a, double b) {
         double ans = 0.0;
-        int n = 5000;
+        int n = 17500;
         double fx = 0;
         
         for(int i = 0; i<n; i++) {
@@ -126,6 +155,7 @@ public class IntegrationQuestions {
         
         return ans;
     }
+    
    
     public double getCorrectAns() {
         return correctAnswer;

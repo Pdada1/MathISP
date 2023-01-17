@@ -1,3 +1,11 @@
+/**
+ * Names: Ishan Garg, Krish Patel, Pranav Mahabal
+ * Course: MCV4U0-1
+ * Date: January 17, 2023
+ * Teacher: Ms. Iulia Gugoiu
+ */
+
+
 public class CalcJeopardy {
     
     static int numPlayers = 2;

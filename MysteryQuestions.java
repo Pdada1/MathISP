@@ -1,3 +1,10 @@
+/**
+ * Names: Ishan Garg, Krish Patel, Pranav Mahabal
+ * Course: MCV4U0-1
+ * Date: January 17, 2023
+ * Teacher: Ms. Iulia Gugoiu
+ */
+
 
 import bsh.Interpreter;
 import java.util.Random;
@@ -7,12 +14,14 @@ public class MysteryQuestions {
     private double correctAnswer;
     private String expression;
     private String function;
+    private String displayFunction;
     private int x;
     private int y;
     private String question;
     private Random rand;
     private Interpreter solver;
     private String[] functions;
+    private String[] displayFunctions;
     private String[] pops;
 
     public MysteryQuestions() {
@@ -25,6 +34,13 @@ public class MysteryQuestions {
             "z*y+Math.sqrt(Math.pow(x,2)+Math.pow(y,2))",
             "Math.pow(x,2)-z*x*y+Math.pow(y,2)-g*y", 
             "Math.sin(x*y)-Math.pow(x,2)*y", 
+        };
+        displayFunctions = new String[]{
+            "z*(x^2) + g*x*y", 
+            "x^2 + z*(y^2) - g", 
+            "z*y + sqrt(x^2 + y^2)",
+            "x^2 - z*x*y + y^2 -g*y", 
+            "sin(x*y) - (x^2)*y", 
         };
         pops = new String[]{
             "fish", 
@@ -68,7 +84,8 @@ public class MysteryQuestions {
         
         int j = rand.nextInt(5) + 0;
         function = functions[j].replaceAll("z", String.valueOf(z)).replaceAll("g", String.valueOf(g));
-                
+        displayFunction = displayFunctions[j].replaceAll("z", String.valueOf(z)).replaceAll("g", String.valueOf(g));  
+        
         correctAnswer = 0;
         double tempY = y;
         double dx = 0;
@@ -81,8 +98,7 @@ public class MysteryQuestions {
             tempY = correctAnswer;
         }
 
-        function = function.replaceAll("Math.", "");
-        question = "Suppose y = y(x) is the solution to the differential equation dy/dx = " + function + " with y(" + x + ") = " + y + ". "
+        question = "Suppose y = y(x) is the solution to the differential equation dy/dx = " + displayFunction + " with y(" + x + ") = " + y + ". "
                 + "Use Euler's method to approximate y(" + approxX + ") using h = " + h + " as the increment.";
     }
 
@@ -159,10 +175,11 @@ public class MysteryQuestions {
 
         correctAnswer = Math.abs((pv0 - pu0) * cx + (pv1 - pu1) * cy + (pv2 - pu2) * cz)/ Math.abs(Math.sqrt(cx * cx + cy * cy + cz * cz));
 
-        question = "Given the skew lines in vector form: (" + pv0 + ", " + pv1 + ", " + pv2 + ") + v(" + vx + ", " + vy
-                + ", " + vz + ")" + " and (" + pu0 + ", " + pu1 + ", " + pu2 + ") + u(" + ux + ", " + uy + ", "
-                + uz + "), find the minimum distance between them.";
+        question = "Given the skew lines in vector form: \n(" + pv0 + ", " + pv1 + ", " + pv2 + ") + v(" + vx + ", " + vy
+                + ", " + vz + ")" + " and \n(" + pu0 + ", " + pu1 + ", " + pu2 + ") + u(" + ux + ", " + uy + ", "
+                + uz + "), \n\nFind the minimum distance between them.";
     }
+    
    
     public double getCorrectAns() {
         return correctAnswer;
