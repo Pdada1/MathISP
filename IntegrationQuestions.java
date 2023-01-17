@@ -96,7 +96,7 @@ public class IntegrationQuestions {
     private void generateQuestion4() {
         int a = rand.nextInt(5) + 1;
         int b = rand.nextInt(5) + 6;
-        int i = rand.nextInt(7) + 3;
+        int i = rand.nextInt(4) + 7;
         displayFunction = displayFunctions[i];
 
         correctAnswer = integrate(funcs[i],a,b);

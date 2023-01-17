@@ -26,15 +26,15 @@ public class DiffQuestions {
     public DiffQuestions() {
         correctAnswer = 0.0;
         displayFunctions = new String[]{
-            "Math.sin(x)", 
-            "Math.cos(x)", 
-            "Math.tan(x)", 
-            "Math.log(x)", 
-            "Math.log10(x)", 
-            "Math.sqrt(x)", 
-            "Math.cosh(x)", 
-            "Math.sinh(x)", 
-            "Math.tanh(x)"
+            "sin(x)", 
+            "cos(x)", 
+            "tan(x)", 
+            "log(x)", 
+            "log10(x)", 
+            "sqrt(x)", 
+            "x^(1/3)", 
+            "x^3", 
+            "2^x"
         };
         funcs = new Function[] {
             (x) -> Math.sin((double) x), 
@@ -43,9 +43,9 @@ public class DiffQuestions {
             (x) -> Math.log((double) x), 
             (x) -> Math.log10((double) x), 
             (x) -> Math.sqrt((double) x), 
-            (x) -> Math.cosh((double) x), 
-            (x) -> Math.sinh((double) x), 
-            (x) -> Math.tanh((double) x),
+            (x) -> Math.pow(x, 1.0/3.0), 
+            (x) -> Math.pow(x, 3), 
+            (x) -> Math.pow(2, x),
         };
         xFuncs = new Function[]{
             (x) -> Math.pow(x,2), 
@@ -73,6 +73,10 @@ public class DiffQuestions {
         x = rand.nextInt(20) + 1;
         int i = rand.nextInt(6) + 0;  
         int j = rand.nextInt(6) + 0; 
+        while(i == j) {
+            j = rand.nextInt(6) + 0; 
+        }
+        
         displayFunction = displayFunctions[i] + "+" + displayFunctions[j];   
                
         correctAnswer = diff(funcs[i], (double)x) + diff(funcs[j], (double)x);
@@ -86,6 +90,10 @@ public class DiffQuestions {
         x = rand.nextInt(20) + 1;
         int i = rand.nextInt(9) + 0;  
         int j = rand.nextInt(9) + 0;  
+        while(i == j) {
+            j = rand.nextInt(9) + 0; 
+        }
+        
         displayFunction = displayFunctions[i] + " * " + displayFunctions[j];
                
         correctAnswer = diff(funcs[i], (double)x)*funcs[j].eval((double)x) + diff(funcs[j], (double)x)*funcs[i].eval((double)x);
@@ -124,7 +132,7 @@ public class DiffQuestions {
     }
 
     private void generateQuestion5() {
-        double g = Math.round((double)(rand.nextInt(200) + 0))/100.0;
+        double g = Math.round((double)(rand.nextInt(200) + 1))/100.0;
         y = rand.nextInt(3) + 2;
         int z = rand.nextInt(3) + 2;
         

@@ -85,11 +85,11 @@ public class ApplyDiffQuestions {
     private void generateQuestion5() {
         int x = 10 * (rand.nextInt(12) + 4);
 
-        correctAnswer = (4.0 * x) / (Math.PI + 4.0);
+        correctAnswer =  (double)x/(Math.PI + 4.0);
 
         question = "A piece of wire " + x + "m long is cut into two pieces. One piece is "
-                + "bent into a square and the other is bent into a circle. What is the perimeter "
-                + "of the square's so that the total area enclosed by both shapes is a minimum?"
+                + "bent into a square and the other is bent into a circle. What is the side length "
+                + "of the square so that the total area enclosed by both shapes is a minimum?"
                 + "\n\nPlease do not enter in terms of pi.";
     }
 
