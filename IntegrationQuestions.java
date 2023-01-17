@@ -89,37 +89,6 @@ public class IntegrationQuestions {
     }
 
     private void generateQuestion3() {
-        int a = rand.nextInt(3) + 1;
-        int b = rand.nextInt(3) + 4;
-        int c = rand.nextInt(3) + 7;
-
-        function = "Math.pow(x, 3) - " + (a + b + c) + "*Math.pow(x, 2) + " + ((a * b) + (a * c) + (b * c)) + "*x - "
-                + (a * b * c);
-        displayFunction = "x^3 - " + (a + b + c) + "*(x^2) + " + ((a * b) + (a * c) + (b * c)) + "*x - " + (a * b * c);
-
-        correctAnswer = Math.abs(integrate(function, a, b)) + Math.abs(integrate(function, b, c));
-
-        displayFunction = displayFunction.replaceAll("Math.", "").replaceAll("x", "t");
-        question = "Find the total distance traveled by a particle moving at a velocity defined by v(t) = "
-                + displayFunction + " over the interval [" + a + ", " + c + "]."
-                + "\n\nNote: read the question carefully.";
-    }
-
-    private void generateQuestion4() {
-        int a = rand.nextInt(5) + 1;
-        int b = rand.nextInt(5) + 4;
-        int i = rand.nextInt(3) + 8;
-        function = functions[i];
-        displayFunction = displayFunctions[i];
-
-        correctAnswer = integrate(function, a, b);
-
-        displayFunction = displayFunction.replaceAll("Math.", "");
-        question = "Find the definite integral of y = " + displayFunction + " over the interval [" + a + ", " + b
-                + "].";
-    }
-
-    private void generateQuestion5() {
         String upperBound = "Math.pow(x, 2)";
         int x = rand.nextInt(10) + 1;
         int i = rand.nextInt(3) + 0;
@@ -140,6 +109,37 @@ public class IntegrationQuestions {
                 + " over the interval [x, x^2].";
     }
 
+    private void generateQuestion4() {
+        int a = rand.nextInt(5) + 1;
+        int b = rand.nextInt(5) + 4;
+        int i = rand.nextInt(3) + 8;
+        function = functions[i];
+        displayFunction = displayFunctions[i];
+
+        correctAnswer = integrate(function, a, b);
+
+        displayFunction = displayFunction.replaceAll("Math.", "");
+        question = "Find the definite integral of y = " + displayFunction + " over the interval [" + a + ", " + b
+                + "].";
+    }
+
+    private void generateQuestion5() {
+        int a = rand.nextInt(3) + 1;
+        int b = rand.nextInt(3) + 4;
+        int c = rand.nextInt(3) + 7;
+
+        function = "Math.pow(x, 3) - " + (a + b + c) + "*Math.pow(x, 2) + " + ((a * b) + (a * c) + (b * c)) + "*x - "
+                + (a * b * c);
+        displayFunction = "x^3 - " + (a + b + c) + "*(x^2) + " + ((a * b) + (a * c) + (b * c)) + "*x - " + (a * b * c);
+
+        correctAnswer = Math.abs(integrate(function, a, b)) + Math.abs(integrate(function, b, c));
+
+        displayFunction = displayFunction.replaceAll("Math.", "").replaceAll("x", "t");
+        question = "Find the total distance traveled by a particle moving at a velocity defined by v(t) = "
+                + displayFunction + " over the interval [" + a + ", " + c + "]."
+                + "\n\nNote: read the question carefully.";
+    }
+
     // private String integrate(String f, int a, int b) {
     // return "((" + b + "-" + (a) + ")/8.0)*(" + f.replaceAll("x",
     // String.valueOf(a)) + "+(3.0*" +
@@ -150,7 +150,7 @@ public class IntegrationQuestions {
 
     private double integrate(String function, double a, double b) {
         double ans = 0.0;
-        int n = 17500;
+        int n = 7500;
         double fx = 0;
 
         for (int i = 0; i < n; i++) {

@@ -115,7 +115,7 @@ public class ApplyIntQuestions {
 
     private double integrate(String function, double a, double b) {
         double ans = 0.0;
-        int n = 17500;
+        int n = 7500;
         double fx = 0;
 
         for (int i = 0; i < n; i++) {
