@@ -1,9 +1,10 @@
-
 /**
  * Names: Ishan Garg, Krish Patel, Pranav Mahabal
  * Course: MCV4U0-1
- * Date: January 17, 2023
- * Teacher: Ms. Iulia Gugoiu
+ * Date: January 18, 2023
+ * Teacher: Ms Iulia Gugoiu
+ * 
+ * Generates the applications of differentiation questions.
  */
 
 import java.util.Random;
@@ -18,6 +19,9 @@ public class ApplyDiffQuestions {
     private Random rand;
     private String[] displayFunctions;
 
+    /**
+     * Class constructor.
+     */
     public ApplyDiffQuestions() {
         correctAnswer = 0.0;
         displayFunctions = new String[] {
@@ -33,6 +37,9 @@ public class ApplyDiffQuestions {
         rand = new Random();
     }
 
+    /**
+     * Generates the balloon volume related rates question.
+     */
     private void generateQuestion1() {
         x = rand.nextInt(30) + 30;
         y = rand.nextInt(5) + 1;
@@ -44,6 +51,9 @@ public class ApplyDiffQuestions {
                 + y + "cm.";
     }
 
+    /**
+     * Generates the L'Hopital question.
+     */
     private void generateQuestion2() {
         int i = rand.nextInt(5) + 0;
         displayFunction = displayFunctions[i];
@@ -61,6 +71,9 @@ public class ApplyDiffQuestions {
                 + " as x approaches zero.\n\nPlease enter the answer correct to two decimal places.";
     }
 
+    /**
+     * Generates the ladder related rates question.
+     */
     private void generateQuestion3() {
         x = rand.nextInt(10) + 5;
         y = rand.nextInt(10) + 5;
@@ -73,6 +86,9 @@ public class ApplyDiffQuestions {
                 + "rate of " + z + " m/s. Find the length of the ladder.";
     }
 
+    /**
+     * Generates the right circular cone optimization question.
+     */
     private void generateQuestion4() {
         int x = rand.nextInt(16) + 5;
 
@@ -82,6 +98,9 @@ public class ApplyDiffQuestions {
                 + ".";
     }
 
+    /**
+     * Generates the square and circle wire optimization question.
+     */
     private void generateQuestion5() {
         int x = 10 * (rand.nextInt(12) + 4);
 
@@ -93,10 +112,19 @@ public class ApplyDiffQuestions {
                 + "\n\nPlease do not enter in terms of pi.";
     }
 
+    /**
+     * Sends correct answer to the main program.
+     * @return Correct answer
+     */
     public double getCorrectAns() {
         return correctAnswer;
     }
 
+    /**
+     * Retrieves which question to generate, then generates and sends it to the main program.
+     * @param num Question number.
+     * @return question to be asked.
+     */
     public String getQuestion(int num) {
         switch (num) {
             case 100 -> generateQuestion1();

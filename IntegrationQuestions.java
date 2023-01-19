@@ -1,9 +1,10 @@
-
 /**
  * Names: Ishan Garg, Krish Patel, Pranav Mahabal
  * Course: MCV4U0-1
- * Date: January 17, 2023
- * Teacher: Ms. Iulia Gugoiu
+ * Date: January 18, 2023
+ * Teacher: Ms Iulia Gugoiu
+ * 
+ * Generates the regular integration questions.
  */
 
 import java.util.Random;
@@ -20,6 +21,9 @@ public class IntegrationQuestions {
     private String[] displayFunctions;
     private Function[] funcs;
 
+    /**
+     * Class constructor.
+     */
     public IntegrationQuestions() {
         correctAnswer = 0.0;
         expression = "";
@@ -61,6 +65,9 @@ public class IntegrationQuestions {
         rand = new Random();
     }
 
+    /**
+     * Generates the definite integral question.
+     */
     private void generateQuestion1() {
         x = rand.nextInt(4) + 1;
         y = rand.nextInt(5) + 5;
@@ -74,6 +81,9 @@ public class IntegrationQuestions {
                 + "].";
     }
 
+    /**
+     * Generates the odd function integration question.
+     */
     private void generateQuestion2() {
         x = rand.nextInt(20) + 1;
         int i = rand.nextInt(4) + 3;
@@ -86,8 +96,10 @@ public class IntegrationQuestions {
                 + "].";
     }
 
+    /**
+     * Generates the Fundamental Theorem of Calculus question.
+     */
     private void generateQuestion3() {
-        String upperBound = "Math.pow(x, 2)";
         int x = rand.nextInt(10) + 1;
         int i = rand.nextInt(3) + 0;
         displayFunction = displayFunctions[i];
@@ -99,6 +111,9 @@ public class IntegrationQuestions {
                 + " over the interval [x, x^2].";
     }
 
+    /**
+     * Generates the substitution rule integration question.
+     */
     private void generateQuestion4() {
         int a = rand.nextInt(5) + 1;
         int b = rand.nextInt(5) + 6;
@@ -112,6 +127,9 @@ public class IntegrationQuestions {
                 + "].";
     }
 
+    /**
+     * Generates the distance traveled by a particle question.
+     */
     private void generateQuestion5() {
         int a = rand.nextInt(3) + 1;
         int b = rand.nextInt(3) + 4;
@@ -127,33 +145,14 @@ public class IntegrationQuestions {
                 + displayFunction + " over the interval [" + a + ", " + c + "]."
                 + "\n\nNote: read the question carefully.";
     }
-
-    // private String integrate(String f, int a, int b) {
-    // return "((" + b + "-" + (a) + ")/8.0)*(" + f.replaceAll("x",
-    // String.valueOf(a)) + "+(3.0*" +
-    // f.replaceAll("x", String.valueOf((2.0*a+b)/3.0)) + ")+(3.0*" +
-    // f.replaceAll("x", String.valueOf((a+2.0*b)/3.0)) + ")+" + f.replaceAll("x",
-    // String.valueOf(b)) + ")";
-    // }
-
-//    private double integrate(String function, double a, double b) {
-//        double ans = 0.0;
-//        int n = 7500;
-//        double fx = 0;
-//
-//        for (int i = 0; i < n; i++) {
-//            try {
-//                solver.eval("result = " + function.replaceAll("x",
-//                        String.valueOf((double) a + (double) ((i - 1) * (((double) b - (double) a) / (double) n)))));
-//                fx = Double.parseDouble(String.valueOf(solver.get("result")));
-//                ans += (double) (((double) b - (double) a) / (double) n) * fx;
-//            } catch (Exception e) {
-//            }
-//        }
-//
-//        return ans;
-//    }
     
+    /**
+     * Calculates the definite integral of a function.
+     * @param f the function.
+     * @param a lower bound.
+     * @param b upper bound.
+     * @return value of the definite integral over the interval.
+     */
     private double integrate(Function f, double a, double b) {
         double ans = 0.0;
         double n = 20000000.0;
@@ -164,14 +163,26 @@ public class IntegrationQuestions {
         return ans;
     }
     
+    /**
+     * Creates interface to store and evaluate functions.
+     */
     private interface Function {
         public double eval(double x);
     }
 
+    /**
+     * Sends correct answer to the main program.
+     * @return Correct answer
+     */
     public double getCorrectAns() {
         return correctAnswer;
     }
 
+    /**
+     * Retrieves which question to generate, then generates and sends it to the main program.
+     * @param num Question number.
+     * @return question to be asked.
+     */
     public String getQuestion(int num) {
         switch (num) {
             case 100 -> generateQuestion1();

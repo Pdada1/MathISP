@@ -1,8 +1,10 @@
 /**
  * Names: Ishan Garg, Krish Patel, Pranav Mahabal
  * Course: MCV4U0-1
- * Date: January 17, 2023
- * Teacher: Ms. Iulia Gugoiu
+ * Date: January 18, 2023
+ * Teacher: Ms Iulia Gugoiu
+ * 
+ * Generates the regular differentiation questions.
  */
 
 
@@ -23,6 +25,9 @@ public class DiffQuestions {
     private Function func;
     private double temp;
 
+    /**
+     * Class constructor.
+     */
     public DiffQuestions() {
         correctAnswer = 0.0;
         displayFunctions = new String[]{
@@ -64,11 +69,10 @@ public class DiffQuestions {
         question = "";
         rand = new Random();
     }
-    
-    public interface Function {
-        public double eval(double x);
-    }
-  
+      
+    /**
+     * Generates the summation rule question.
+     */
     private void generateQuestion1() {
         x = rand.nextInt(20) + 1;
         int i = rand.nextInt(6) + 0;  
@@ -86,6 +90,9 @@ public class DiffQuestions {
         question = "What is the slope of the tangent of y = " + displayFunction + " at x = " + x + "?";
     }
     
+    /**
+     * Generates the product rule question.
+     */
     private void generateQuestion2() {
         x = rand.nextInt(20) + 1;
         int i = rand.nextInt(9) + 0;  
@@ -103,6 +110,9 @@ public class DiffQuestions {
         question = "What is the slope of the tangent of y = " + displayFunction + " at x = " + x + "?";
     }
 
+    /**
+     * Generates the quotient rule question.
+     */
     private void generateQuestion3() {
         x = rand.nextInt(8) + 2;
         y = rand.nextInt(10) + 2;
@@ -116,6 +126,9 @@ public class DiffQuestions {
         question = "What is the slope of the tangent of y = " + displayFunction + " at x = " + x + "?";
     }
 
+    /**
+     * Generates the normal to the graph, chain rule question.
+     */
     private void generateQuestion4() {
         x = rand.nextInt(6) + 1;
         y = rand.nextInt(100) + 2;
@@ -131,6 +144,9 @@ public class DiffQuestions {
         question = "What is the normal of y = " + displayFunction + " at x = " + x + "?\n\nNote: read the question carefully.";
     }
 
+    /**
+     * Generates the logarithmic differentiation question.
+     */
     private void generateQuestion5() {
         double g = 0.25*(double)(rand.nextInt(7) + 1);
         y = rand.nextInt(3) + 1;
@@ -145,29 +161,37 @@ public class DiffQuestions {
         question = "What is the slope of the tangent of y = " + displayFunction + " at x = " + g + "?";
     }
     
-//    private double differentiate(String f, double x) {
-//        double ans = 0;
-//        double h = 0.000000001;
-//        
-//        String exp = "((" + f.replaceAll("x", String.valueOf((double)x+h)) + ")-(" + f.replaceAll("x", String.valueOf(x)) + "))/" + h;
-//
-//        try {
-//            solver.eval("result = " + exp);
-//            ans = Double.parseDouble(String.valueOf(solver.get("result")));
-//        } catch(Exception e) {}
-//        
-//        return ans;
-//    }
-    
+    /**
+     * Calculates the derivative of a function at a point.
+     * @param f the function.
+     * @param x the x-value to calculate at.
+     * @return slope of the graph at that x-value.
+     */
     private double diff(Function f, double x) {
         double h = 0.000000001;               
         return (f.eval(x+h)-f.eval(x))/h;
     }
+    
+    /**
+     * Creates interface to store and evaluate functions.
+     */
+    public interface Function {
+        public double eval(double x);
+    }
    
+    /**
+     * Sends correct answer to the main program.
+     * @return Correct answer
+     */
     public double getCorrectAns() {
         return correctAnswer;
     }
     
+    /**
+     * Retrieves which question to generate, then generates and sends it to the main program.
+     * @param num Question number.
+     * @return question to be asked.
+     */
     public String getQuestion(int num) {
         switch(num) {
             case 100 -> generateQuestion1();

@@ -1,9 +1,10 @@
-
 /**
  * Names: Ishan Garg, Krish Patel, Pranav Mahabal
  * Course: MCV4U0-1
- * Date: January 17, 2023
- * Teacher: Ms. Iulia Gugoiu
+ * Date: January 18, 2023
+ * Teacher: Ms Iulia Gugoiu
+ * 
+ * Generates the applications of integration questions.
  */
 
 import java.util.Random;
@@ -18,6 +19,9 @@ public class ApplyIntQuestions {
     private String question;
     private Random rand;
 
+    /**
+     * Class constructor.
+     */
     public ApplyIntQuestions() {
         correctAnswer = 0.0;
         expression = "";
@@ -27,6 +31,9 @@ public class ApplyIntQuestions {
         rand = new Random();
     }
 
+    /**
+     * Generates the downward displacement question.
+     */
     private void generateQuestion1() {
         x = rand.nextInt(7) + 1;
         y = rand.nextInt(7) + 1;
@@ -39,6 +46,9 @@ public class ApplyIntQuestions {
                 + "] if his velocity is defined by v(t) = " + x +"*t + " + y + ".";
     }
 
+    /**
+     * Generates the area enclosed by two functions question.
+     */
     private void generateQuestion2() {
         int a = rand.nextInt(7) + 1;
         int x = rand.nextInt(4) + 1;
@@ -54,6 +64,9 @@ public class ApplyIntQuestions {
         question = "Find the area of the region enclosed by f(x) = " + displayFunction + " and g(x) = " + b + "*x.";
     }
 
+    /**
+     * Generates the pyramid volume question.
+     */
     private void generateQuestion3() {
         int a = rand.nextInt(20) + 1;
         int b = rand.nextInt(20) + 1;
@@ -65,6 +78,9 @@ public class ApplyIntQuestions {
                 + b + " + z/" + c + " = 1.";
     }
 
+    /**
+     * Generates the washer method volume question.
+     */
     private void generateQuestion4() {
         x = rand.nextInt(3) + 1;
         y = rand.nextInt(3) + 4;
@@ -82,6 +98,9 @@ public class ApplyIntQuestions {
                 + "\n\nPlease do not enter in terms of pi.";
     }
 
+    /**
+     * Generates the shell method volume question.
+     */
     private void generateQuestion5() {
         int g = rand.nextInt(5) + 1;
         int c = rand.nextInt(5) + 1;
@@ -96,25 +115,14 @@ public class ApplyIntQuestions {
                 + " and the x-axis over the interval [" + 0 + ", " + c + "] when rotated about the y-axis."
                 + "\n\nPlease do not enter in terms of pi.";
     }
-
-//    private double integrate(String function, double a, double b) {
-//        double ans = 0.0;
-//        int n = 7500;
-//        double fx = 0;
-//
-//        for (int i = 0; i < n; i++) {
-//            try {
-//                solver.eval("result = " + function.replaceAll("x",
-//                        String.valueOf((double) a + (double) ((i - 1) * (((double) b - (double) a) / (double) n)))));
-//                fx = Double.parseDouble(String.valueOf(solver.get("result")));
-//                ans += (double) (((double) b - (double) a) / (double) n) * fx;
-//            } catch (Exception e) {
-//            }
-//        }
-//
-//        return ans;
-//    }
     
+    /**
+     * Calculates the definite integral of a function.
+     * @param f the function.
+     * @param a lower bound.
+     * @param b upper bound.
+     * @return value of the definite integral over the interval.
+     */
     private double integrate(Function f, double a, double b) {
         double ans = 0.0;
         double n = 20000000.0;
@@ -125,14 +133,26 @@ public class ApplyIntQuestions {
         return ans;
     }
     
+    /**
+     * Creates interface to store and evaluate functions.
+     */
     private interface Function {
         public double eval(double x);
     }
 
+    /**
+     * Sends correct answer to the main program.
+     * @return Correct answer
+     */
     public double getCorrectAns() {
         return correctAnswer;
     }
 
+    /**
+     * Retrieves which question to generate, then generates and sends it to the main program.
+     * @param num Question number.
+     * @return question to be asked.
+     */
     public String getQuestion(int num) {
         switch (num) {
             case 100 -> generateQuestion1();

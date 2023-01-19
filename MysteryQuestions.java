@@ -1,9 +1,10 @@
-
 /**
  * Names: Ishan Garg, Krish Patel, Pranav Mahabal
  * Course: MCV4U0-1
- * Date: January 17, 2023
- * Teacher: Ms. Iulia Gugoiu
+ * Date: January 18, 2023
+ * Teacher: Ms Iulia Gugoiu
+ * 
+ * Generates the mystery (vectors, differential equations) questions.
  */
 
 import java.util.Random;
@@ -20,6 +21,9 @@ public class MysteryQuestions {
     private String[] pops;
     private Function[] funcs;
 
+    /**
+     * Class constructor.
+     */
     public MysteryQuestions() {
         correctAnswer = 0.0;
         funcs = new Function[] {
@@ -48,6 +52,9 @@ public class MysteryQuestions {
         rand = new Random();
     }
 
+    /**
+     * Generates the dot product question.
+     */
     private void generateQuestion1() {
         int x = rand.nextInt(7) + 0;
         int y = rand.nextInt(7) + 0;
@@ -62,6 +69,9 @@ public class MysteryQuestions {
                 + y1 + "," + z1 + ").";
     }
 
+    /**
+     * Generates the Euler's method question.
+     */
     private void generateQuestion2() {
         double x = rand.nextInt(3) + 0;
         double y = rand.nextInt(3) + 0;
@@ -92,6 +102,9 @@ public class MysteryQuestions {
                 + "Use Euler's method to approximate y(" + approxX + ") using h = " + h + " as the increment.";
     }
 
+    /**
+     * Generates the logistical population growth question.
+     */
     private void generateQuestion3() {
         boolean based = false;
         double popM = 100 * rand.nextInt(3) + 300;
@@ -123,6 +136,9 @@ public class MysteryQuestions {
                 + pop1 + ", how many " + type + " will he have in year " + yearC + "?";
     }
 
+    /**
+     * Generates the distance between a point and plane question.
+     */
     private void generateQuestion4() {
         double x0 = rand.nextInt(11) - 5;
         double y0 = rand.nextInt(11) - 5;
@@ -155,6 +171,9 @@ public class MysteryQuestions {
                 + "), find the distance between this point and plane.";
     }
 
+    /**
+     * Generates the skew line distance question.
+     */
     private void generateQuestion5() {
         double pv0 = rand.nextInt(13) - 6;
         double pv1 = rand.nextInt(13) - 6;
@@ -173,7 +192,6 @@ public class MysteryQuestions {
         double cz = ux * vy - uy * vx;
 
         double coeff = rand.nextInt(5) - 2;
-        System.out.println(coeff);
         double pu0 = pv0 - cx + coeff * ux;
         double pu1 = pv1 - cy + coeff * uy;
         double pu2 = pv2 - cz + coeff * uz;
@@ -187,14 +205,26 @@ public class MysteryQuestions {
                 + uz + "), \n\nFind the minimum distance between them.";
     }
     
+    /**
+     * Creates interface to store and evaluate functions.
+     */
     private interface Function {
         public double eval(double x, double y);
     }
 
+    /**
+     * Sends correct answer to the main program.
+     * @return Correct answer
+     */
     public double getCorrectAns() {
         return correctAnswer;
     }
 
+    /**
+     * Retrieves which question to generate, then generates and sends it to the main program.
+     * @param num Question number.
+     * @return question to be asked.
+     */
     public String getQuestion(int num) {
         switch (num) {
             case 100 -> generateQuestion1();
