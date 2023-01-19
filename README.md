@@ -1,4 +1,4 @@
-# MathISP
+# Calculus Jeopardy
 Calculus Jeopardy
 Ishan Garg, Krish Patel, Pranav Mahabal
 January 18, 2023
